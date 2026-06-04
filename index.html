@@ -3,959 +3,490 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>חשבונאוטיקה — מחזירים את המוטיבציה</title>
+  <title>חשבונאוטיקה - פיילוט מורים מלווה אישית</title>
+  
+  <!-- Tailwind CSS & Inter Font -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       background: radial-gradient(ellipse at 50% 60%, #0f172a 0%, #020617 100%);
-      min-height: 100dvh;
-      color: #fff;
+      min-height: 100vh;
       overflow-x: hidden;
     }
-
-    /* ── Animations ── */
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50%       { opacity: 1; }
+    
+    .transition-all-300 {
+      transition: all 0.3s ease-in-out;
     }
-    @keyframes float-up {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-10px); }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.1; }
+      50%       { opacity: 0.9; }
+    }
+    @keyframes float-rocket {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(2deg); }
     }
     @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 18px 3px rgba(99,102,241,.45); }
-      50%       { box-shadow: 0 0 36px 7px rgba(99,102,241,.75); }
+      0%, 100% { box-shadow: 0 0 18px 3px rgba(139, 92, 246, 0.45); }
+      50%       { box-shadow: 0 0 28px 8px rgba(139, 92, 246, 0.75); }
     }
     @keyframes pop-in {
-      from { opacity: 0; transform: scale(.85) translateY(12px); }
-      to   { opacity: 1; transform: scale(1)   translateY(0); }
-    }
-    @keyframes success-bounce {
-      0%   { transform: scale(.8)   rotate(-5deg); opacity: 0; }
-      60%  { transform: scale(1.08) rotate(2deg);  opacity: 1; }
-      100% { transform: scale(1)    rotate(0deg);  opacity: 1; }
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: .3; }
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .float-rocket   { animation: float-up 3s ease-in-out infinite; }
-    .glow-btn       { animation: glow-pulse 2s ease-in-out infinite; }
-    .pop-in         { animation: pop-in .4s ease both; }
-    .success-anim   { animation: success-bounce .6s ease both; }
-
-    /* ── Stars canvas ── */
+    .float-rocket { animation: float-rocket 4s ease-in-out infinite; }
+    .glow-btn { animation: glow-pulse 2.5s ease-in-out infinite; }
+    .pop-in { animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    
     #stars-canvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
     }
-
-    /* ── Nebula blobs ── */
-    .nebula {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
+    
+    .touch-target {
+      min-height: 52px;
     }
-    .nebula-1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(79,70,229,.13) 0%, transparent 70%);
-      top: -15%; right: -10%;
-    }
-    .nebula-2 {
-      width: 350px; height: 350px;
-      background: radial-gradient(circle, rgba(168,85,247,.09) 0%, transparent 70%);
-      bottom: -10%; left: -5%;
-    }
-
-    /* ── Layout ── */
-    .app {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 100dvh;
-    }
-
-    /* ── Header ── */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 20px 8px;
-      flex-shrink: 0;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.15rem;
-      font-weight: 900;
-      letter-spacing: -.02em;
-    }
-    .logo-rocket { font-size: 1.4rem; display: inline-block; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      background: rgba(99,102,241,.2);
-      border: 1px solid rgba(99,102,241,.3);
-      border-radius: 999px;
-    }
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #4ade80;
-      animation: pulse-dot 1.5s ease-in-out infinite;
-    }
-    .badge span { font-size: .6rem; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; color: #a5b4fc; }
-
-    /* ── Step dots ── */
-    .step-dots {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 6px 0;
-      flex-shrink: 0;
-    }
-    .dot {
-      border-radius: 999px;
-      transition: all .3s;
-      height: 8px;
-    }
-    .dot.past    { width: 8px;  background: #4338ca; }
-    .dot.current { width: 20px; background: #818cf8; }
-    .dot.future  { width: 8px;  background: rgba(255,255,255,.2); }
-
-    /* ── Content area ── */
-    .content {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      padding: 16px 20px 40px;
-      max-height: 85dvh;
-    }
-
-    .step-wrap {
-      max-width: 460px; /* Slightly wider for the text */
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* ── The "Audacious" Hero Section ── */
-    .hero-statement {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-top: 4px solid #f87171;
-      border-radius: 20px;
-      padding: 24px 20px;
-      position: relative;
-    }
-    .hero-statement h1 {
-      color: #f87171; /* Red-ish color for "Stop!" effect */
-      font-size: 1.6rem;
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-    .hero-subtitle {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-    .hero-body {
-      font-size: 1.05rem;
-      color: #e2e8f0;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .hero-body strong {
-      color: #fff;
-    }
-
-    .action-prompt {
-      text-align: center;
-      margin-top: 10px;
-    }
-    .action-prompt h2 {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #a5b4fc;
-      margin-bottom: 4px;
-    }
-    .action-prompt p {
-      font-size: 1rem;
-      color: #cbd5e1;
-    }
-
-    /* ── Typography helpers ── */
-    .step-label {
-      font-size: .65rem; font-weight: 900;
-      text-transform: uppercase; letter-spacing: .14em;
-      color: #a5b4fc;
-    }
-    .step-title {
-      font-size: 1.5rem; font-weight: 900;
-      line-height: 1.2; color: #fff;
-    }
-    .step-sub {
-      font-size: .85rem; color: #94a3b8;
-    }
-    .step-header { text-align: center; display: flex; flex-direction: column; gap: 4px; }
-
-    /* ── Card ── */
-    .card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 24px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* ── Inputs ── */
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field label { font-size: .85rem; font-weight: 700; color: #cbd5e1; }
-    .field label .optional { font-weight: 400; color: #64748b; margin-right: 4px; }
-
-    input[type=text], input[type=number], input[type=email], input[type=tel] {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.8) !important;
-      border: 1px solid rgba(99, 102, 241, 0.3) !important;
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff !important;
-      outline: none;
-      transition: border-color .2s;
-      font-family: inherit;
-    }
-    input[type=text]::placeholder, input[type=email]::placeholder, input[type=tel]::placeholder { color: rgba(255,255,255,.3); font-weight: 400; }
-    input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus { border-color: #6366f1; }
-
-    input.purple-field {
-      background: rgba(168,85,247,.1);
-      border-color: rgba(168,85,247,.25);
-    }
-    input.purple-field:focus { border-color: #a855f7; }
-    input.purple-field::placeholder { color: rgba(255,255,255,.25); }
-
-    /* ── Buttons ── */
-    button {
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s;
-    }
-    button:active { transform: scale(.96); }
-
-    .btn-check {
-      background: #4f46e5;
-      color: #fff;
-      font-weight: 900;
-      font-size: 1rem;
-      padding: 0 20px;
-      border-radius: 12px;
-      flex-shrink: 0;
-    }
-    .btn-check:hover { background: #6366f1; }
-
-    .btn-next {
-      width: 100%;
-      background: #4f46e5;
-      color: #fff;
-      font-weight: 900;
-      font-size: 1.1rem;
-      padding: 16px;
-      border-radius: 16px;
-    }
-    .btn-next:hover { background: #6366f1; }
-
-    .btn-submit {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: #4f46e5; color: #fff; font-weight: 900; font-size: 1.05rem;
-      padding: 16px; border-radius: 16px;
-    }
-    .btn-submit:hover:not(:disabled) { background: #6366f1; }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
-
-    /* ── Feedback banners ── */
-    .feedback {
-      border-radius: 16px; padding: 14px 16px; font-size: .875rem; font-weight: 700; line-height: 1.5; display: none;
-    }
-    .feedback.show { display: block; animation: pop-in .3s ease both; }
-    .feedback.correct { background: rgba(16,185,129,.12); border: 1px solid rgba(52,211,153,.3); color: #6ee7b7; }
-    .feedback.wrong { background: rgba(239,68,68,.12); border: 1px solid rgba(248,113,113,.3); color: #fca5a5; }
-
-    /* ── Drag puzzle ── */
-    .puzzle-equation {
-      display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: nowrap;
-    }
-    .puzzle-slot {
-      width: 52px; height: 52px; border-radius: 14px; border: 2px dashed rgba(99,102,241,.45);
-      background: rgba(99,102,241,.07); display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem; font-weight: 900; color: #a5b4fc; transition: all .15s; position: relative; flex-shrink: 0;
-    }
-    .puzzle-slot.op-slot { width: 44px; border-color: rgba(168,85,247,.45); background: rgba(168,85,247,.07); }
-    .puzzle-slot.filled { border-style: solid; border-color: #6366f1; background: rgba(99,102,241,.2); color: #fff; }
-    .puzzle-slot.op-slot.filled { border-color: #a855f7; background: rgba(168,85,247,.2); }
-    .puzzle-slot.over { transform: scale(1.1); border-color: #818cf8; background: rgba(99,102,241,.3); }
-    .puzzle-slot:not(:empty) { cursor: pointer; }
-    .puzzle-equals { font-size: 1.4rem; font-weight: 900; color: #94a3b8; flex-shrink: 0; }
-    .puzzle-target {
-      width: 52px; height: 52px; border-radius: 14px; background: #4f46e5;
-      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 900; color: #fff;
-      box-shadow: 0 4px 14px rgba(99,102,241,.4); flex-shrink: 0;
-    }
-    .puzzle-pool {
-      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; min-height: 72px;
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px;
-    }
-    .puzzle-chip {
-      height: 52px; min-width: 52px; padding: 0 14px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 900;
-      cursor: grab; user-select: none; touch-action: none; transition: opacity .15s;
-    }
-    .puzzle-chip.num-chip { background: rgba(99,102,241,.22); border: 2px solid rgba(99,102,241,.5); color: #c7d2fe; }
-    .puzzle-chip.op-chip { background: rgba(168,85,247,.22); border: 2px solid rgba(168,85,247,.5); color: #e9d5ff; }
-    .puzzle-chip.gone { opacity: 0; pointer-events: none; width: 0; min-width: 0; padding: 0; border: none; margin: 0; }
-    .shake { animation: shake .35s ease; }
-    @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
-
-    /* ── Slider ── */
-    .slider-header { display: flex; align-items: center; justify-content: space-between; font-size: .85rem; color: #94a3b8; }
-    .slider-val { font-size: 2rem; font-weight: 900; color: #fff; }
-    .slider-unit { font-size: .85rem; color: #94a3b8; margin-right: 4px; }
-    input[type=range] {
-      -webkit-appearance: none; width: 100%; height: 6px; border-radius: 999px; background: rgba(255,255,255,.12); outline: none; cursor: pointer;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #6366f1; cursor: pointer; box-shadow: 0 0 0 4px rgba(99,102,241,.25);
-    }
-
-    .level-badge { text-align: center; font-size: 1.25rem; font-weight: 900; transition: color .3s; }
-    .chart-wrap { width: 100%; max-width: 320px; margin: 0 auto; }
-
-    /* ── Dynamic text box ── */
-    .info-box {
-      background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.2); border-radius: 16px;
-      padding: 12px 14px; font-size: .875rem; font-weight: 700; color: #c7d2fe; text-align: center; line-height: 1.5;
-    }
-
-    /* ── Method rows ── */
-    .method-row { display: flex; align-items: flex-start; gap: 14px; }
-    .method-icon {
-      flex-shrink: 0; width: 40px; height: 40px; border-radius: 14px; background: rgba(255,255,255,.1);
-      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
-    }
-    .method-title { font-size: .875rem; font-weight: 900; color: #fff; }
-    .method-desc  { font-size: .85rem; color: #94a3b8; line-height: 1.5; margin-top: 2px; }
-
-    .author-box {
-      background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.2); border-radius: 16px;
-      padding: 16px; text-align: center; font-size: .875rem; font-weight: 700; color: #c7d2fe; line-height: 1.6;
-    }
-
-    .promo-box {
-      background: rgba(16,185,129,.1); border: 1px solid rgba(52,211,153,.2); border-radius: 16px;
-      padding: 12px; text-align: center;
-    }
-    .promo-tag  { font-size: .65rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; color: #6ee7b7; }
-    .promo-text { font-size: .875rem; font-weight: 700; color: #fff; margin-top: 2px; }
-    .name-hint { font-size: .75rem; font-weight: 700; color: #d8b4fe; margin-top: 4px; display: none; }
-    .name-hint.show { display: block; }
-    .form-note { text-align: center; font-size: .75rem; color: #334155; margin-top: 4px; }
-
-    /* ── Success screen ── */
-    .success-screen {
-      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 40px 0; min-height: 60dvh; justify-content: center;
-    }
-    .success-rocket { font-size: 5rem; }
-    .success-title  { font-size: 2rem; font-weight: 900; color: #fff; }
-    .success-body   { font-size: 1rem; color: #cbd5e1; line-height: 1.6; }
-    .success-badge {
-      display: flex; align-items: center; gap: 8px; background: rgba(16,185,129,.12); border: 1px solid rgba(52,211,153,.3); border-radius: 16px; padding: 12px 20px;
-    }
-    .success-badge span { font-size: .875rem; font-weight: 700; color: #6ee7b7; }
-    .success-name-box { background: rgba(168,85,247,.12); border: 1px solid rgba(192,132,252,.3); border-radius: 16px; padding: 12px 20px; display: none; }
-    .success-name-box.show { display: block; }
-
-    .hidden { display: none !important; }
-    .sending-dots::after { content: '...'; animation: pulse-dot 1s steps(3) infinite; }
   </style>
+
+  <script>
+    function fallbackImage(label) {
+      return `
+        <div class="w-full aspect-[4/3] rounded-2xl bg-slate-950 border-2 border-slate-800 flex flex-col items-center justify-center p-6 text-center">
+          <span class="text-4xl mb-3">🎮</span>
+          <p class="text-sm font-extrabold text-indigo-300 leading-relaxed">${label}</p>
+          <p class="text-[10px] text-slate-600 mt-2 font-black uppercase tracking-wider">חשבונאוטיקה פיילוט מורים</p>
+        </div>
+      `;
+    }
+  </script>
 </head>
-<body>
+<body class="text-white selection:bg-purple-500 selection:text-white antialiased">
 
-<canvas id="stars-canvas"></canvas>
-<div class="nebula nebula-1"></div>
-<div class="nebula nebula-2"></div>
+  <!-- BACKGROUND ELEMENTS -->
+  <canvas id="stars-canvas"></canvas>
+  <div class="fixed top-[-10%] right-[-10%] w-[450px] h-[450px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-purple-600/10 blur-[100px] pointer-events-none z-0"></div>
 
-<div class="app">
-
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <span class="logo-rocket float-rocket">🚀</span>
-      <span>חשבונאוטיקה</span>
-    </div>
-    <div class="badge">
-      <div class="badge-dot"></div>
-      <span>הצטרפו לפיילוט</span>
-    </div>
-  </header>
-
-  <!-- Step dots -->
-  <div class="step-dots" id="step-dots"></div>
-
-  <!-- Content -->
-  <div class="content" id="content">
-
-    <!-- ── Step 0: The Audacious Hook + Drag Puzzle ── -->
-    <div id="step-0" class="step-wrap pop-in">
-      
-      <!-- NEW HERO SECTION based on the Marketing Funnel -->
-      <div class="hero-statement">
-        <h1>אל תשלמו שקל על שיעור פרטי אם לילד אין מוטיבציה.</h1>
-        <p class="hero-subtitle">מילה ממורה למתמטיקה שראה יותר מדי הורים מתוסכלים.</p>
-        <div class="hero-body">
-          <p>בואו נדבר דוגרי: שיעור פרטי הוא פלסטר. אם הילד מפחד מהחומר, המורה הכי יקר בעולם לא יעזור.</p>
-          <p>למה הילד בורח למשחקים בטלפון? <strong>כי שם הוא מנצח.</strong> במתמטיקה? הוא מרגיש שהוא מפסיד עוד לפני שהתחיל.</p>
-          <p>השיטה שלנו לא באה ללמד אותו חומר – היא באה <strong>להוכיח לו שהוא יכול</strong>. כשהוא פותר משחקון ב-60 שניות, המוח שלו מקבל את אותו 'בוסט' של משחק בפלאפון. רק שהפעם, הוא נשאר עם ביטחון עצמי.</p>
-        </div>
-      </div>
-
-      <div class="action-prompt">
-        <h2>תנו לו דקה אחת.</h2>
-        <p>קראו לו רגע לפתור את הפאזל. אם הוא מחייך בסוף – סימן שהחזרתם לו את הביטחון.</p>
-      </div>
-
-      <!-- The Puzzle -->
-      <div class="card">
-        <div class="puzzle-equation" id="puzzle-eq" dir="ltr">
-          <div class="puzzle-slot" id="slot-0" data-slot="0" data-type="num" onclick="slotClick(0)"></div>
-          <div class="puzzle-slot op-slot" id="slot-1" data-slot="1" data-type="op" onclick="slotClick(1)"></div>
-          <div class="puzzle-slot" id="slot-2" data-slot="2" data-type="num" onclick="slotClick(2)"></div>
-          <div class="puzzle-slot op-slot" id="slot-3" data-slot="3" data-type="op" onclick="slotClick(3)"></div>
-          <div class="puzzle-slot" id="slot-4" data-slot="4" data-type="num" onclick="slotClick(4)"></div>
-          <span class="puzzle-equals">=</span>
-          <div class="puzzle-target">10</div>
-        </div>
-
-        <div class="puzzle-pool" id="puzzle-pool" dir="ltr">
-          <div class="puzzle-chip num-chip" id="chip-6"  data-id="chip-6"  data-type="num" data-val="6">6</div>
-          <div class="puzzle-chip num-chip" id="chip-3"  data-id="chip-3"  data-type="num" data-val="3">3</div>
-          <div class="puzzle-chip op-chip"  id="chip-add" data-id="chip-add" data-type="op" data-val="+">+</div>
-          <div class="puzzle-chip num-chip" id="chip-12" data-id="chip-12" data-type="num" data-val="12">12</div>
-          <div class="puzzle-chip op-chip"  id="chip-div" data-id="chip-div" data-type="op" data-val="÷">÷</div>
-        </div>
-
-        <div class="feedback correct" id="fb-correct">
-          הוא הצליח! 🙌 ראיתם את החיוך? ככה בונים ביטחון.
-        </div>
-        <div class="feedback wrong" id="fb-wrong">
-          זה בסדר גמור לטעות. במערכת שלנו, כישלון הוא רק שלב בדרך לניצחון 😊
-        </div>
-
-        <button class="btn-check" id="btn-check" onclick="checkPuzzle()" style="width:100%;padding:14px;border-radius:14px;font-size:1rem;">
-          בדוק פתרון ✨
-        </button>
-      </div>
-
-      <!-- Post-Puzzle Call to Action -->
-      <button class="btn-next glow-btn" onclick="goNext()">הצליח? בואו נדבר על החיסכון שלכם →</button>
-    </div>
-
-
-    <!-- ── Step 1: Slider ── -->
-    <div id="step-1" class="step-wrap hidden">
-      <div class="step-header">
-        <p class="step-label">שלב 2 מתוך 3</p>
-        <h2 class="step-title">כמה אתם חוסכים? ⚡</h2>
-        <p class="step-sub">הזיזו את הסליידר וראו את החיסכון מול מורים פרטיים</p>
-      </div>
-
-      <div class="card">
-        <div class="level-badge" id="level-badge">חוקר 🔭</div>
-
-        <div class="chart-wrap">
-          <svg id="chart-svg" viewBox="0 0 220 100" style="width:100%;" aria-hidden="true">
-            <line x1="10" y1="90" x2="210" y2="90" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-            <!-- bars injected by JS -->
-          </svg>
-        </div>
-
-        <div class="info-box" id="info-box">
-          זמן מעולה! ב-4 שבועות הילד ירגיש את ההבדל.
-        </div>
-
+  <!-- CONTAINER -->
+  <div class="relative z-10 flex flex-col min-h-screen max-w-xl mx-auto px-5 py-8">
+    
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-3.5">
+        <span class="text-4xl float-rocket">🚀</span>
         <div>
-          <div class="slider-header">
-            <span>5 דק׳</span>
-            <div style="text-align:center;">
-              <span class="slider-val" id="slider-val">20</span>
-              <span class="slider-unit">דקות ליום</span>
-            </div>
-            <span>60 דק׳</span>
-          </div>
-          <input type="range" min="5" max="60" value="20" id="slider" oninput="onSlider(this.value)" style="margin-top:12px;" />
+          <h1 class="text-2xl font-black tracking-tight bg-gradient-to-l from-indigo-300 to-purple-400 bg-clip-text text-transparent">חשבונאוטיקה</h1>
+          <p class="text-xs text-indigo-300 font-bold uppercase tracking-wider">פיילוט מורים פרטיים</p>
         </div>
       </div>
-
-      <div class="author-box">
-        <strong>זה המודל שלנו:</strong> אין פה קסמים. גישה ל-10 משחקים, בלי הוראת קבע ובלי חידוש אוטומטי.<br>בסוף כל חודש אתם מוציאים דוח התקדמות, ואם אתם לא רואים תוצאות – אל תחדשו. אתם קונים רק מה שעובד.
+      <div class="inline-flex items-center gap-2 bg-purple-500/20 border border-purple-500/35 px-4 py-2 rounded-full">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-black tracking-wide text-purple-200">הרשמה פתוחה</span>
       </div>
+    </header>
 
-      <button class="btn-next glow-btn" onclick="goNext()">אני רוצה להצטרף לפיילוט →</button>
+    <!-- Hero Section -->
+    <section class="text-center mb-10 pop-in">
+      <h2 class="text-4xl font-black tracking-tight leading-tight mb-4 text-white">
+        הופכים את המתמטיקה לחוויה 🎮
+      </h2>
+      <p class="text-slate-200 text-base md:text-lg leading-relaxed max-w-md mx-auto font-medium">
+        משחקי מתמטיקה מלהיבים לתלמידים שלכם, לצד פורטל ניהול ומעקב חכם וקל לשימוש מכל טלפון.
+      </p>
+    </section>
+
+    <!-- Image Gallery Section with Tabs -->
+    <section class="mb-10 pop-in">
+      <div class="bg-slate-900/75 border-2 border-slate-800 backdrop-blur-md rounded-3xl p-5 shadow-xl">
+        <p class="text-sm font-black tracking-wide text-purple-300 uppercase mb-4 text-center">הצצה קצרה למערכת 📸</p>
+        
+        <!-- Tab Selectors -->
+        <div class="grid grid-cols-2 gap-2.5 mb-5 p-1.5 bg-slate-950/90 rounded-2xl border border-slate-800">
+          <button id="tab-btn-games" class="py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-purple-200 bg-purple-600/30 border border-purple-500/30" onclick="switchTab('games')">
+            🎮 משחקי תלמידים
+          </button>
+          <button id="tab-btn-portal" class="py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-slate-400 hover:text-slate-200" onclick="switchTab('portal')">
+            📊 פורטל המורה
+          </button>
+        </div>
+
+        <!-- Tab Content: Games -->
+        <div id="tab-content-games" class="space-y-4 transition-all-300">
+          <div class="grid grid-cols-1 gap-4">
+            <!-- Game Image 1 -->
+            <div class="group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-slate-800/80 bg-slate-950" onclick="openLightbox('113.jpeg', 'אליפות הכפל: תרגול מכפלות מהיר ואינטראקטיבי')">
+              <img src="113.jpeg" alt="אליפות הכפל" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('אליפות הכפל: תרגול מכפלות אינטראקטיבי')">
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-4 pt-10">
+                <p class="text-sm font-black text-slate-100">אליפות הכפל: תרגול מכפלות אינטראקטיבי</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-3">
+              <!-- Game Image 2 -->
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950" onclick="openLightbox('117.jpeg', 'פתרון בעיות מילוליות בשיטת איסוף הנתונים')">
+                <img src="117.jpeg" alt="פתרון בעיות מילוליות" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('בעיות מילוליות')">
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-2 pt-5">
+                  <p class="text-[10px] font-bold text-slate-200 truncate">בעיות מילוליות</p>
+                </div>
+              </div>
+              <!-- Game Image 3 -->
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950" onclick="openLightbox('115.jpeg', 'מרכז המשחקים ותפריט השלבים של התלמידים')">
+                <img src="115.jpeg" alt="מרכז המשחקים" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('מרכז המשחקים')">
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-2 pt-5">
+                  <p class="text-[10px] font-bold text-slate-200 truncate">מרכז המשחקים</p>
+                </div>
+              </div>
+              <!-- Game Image 4 -->
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950" onclick="openLightbox('114.jpeg', 'מה שהתלמיד רואה כשנשלחת אליו משימה מותאמת')">
+                <img src="114.jpeg" alt="קבלת משימה" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('קבלת משימה')">
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-2 pt-5">
+                  <p class="text-[10px] font-bold text-slate-200 truncate">קבלת משימה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content: Portal -->
+        <div id="tab-content-portal" class="space-y-4 transition-all-300 hidden">
+          <div class="grid grid-cols-1 gap-4">
+            <!-- Portal Image 1 -->
+            <div class="group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-slate-800/80 bg-slate-950" onclick="openLightbox('116.jpeg', 'פורטל המורה ומרכז הבקרה הראשי')">
+              <img src="116.jpeg" alt="דף התחברות" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('פורטל המורה ומרכז הבקרה')">
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-4 pt-10">
+                <p class="text-sm font-black text-slate-100">פורטל המורה ומרכז הבקרה הראשי</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Portal Image 2 -->
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950" onclick="openLightbox('111.jpeg', 'רשימת תלמידים פרטיים ומעקב סטטוס בזמן אמת')">
+                <img src="111.jpeg" alt="רשימת תלמידים" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('רשימת תלמידים')">
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-2 pt-5">
+                  <p class="text-[11px] font-bold text-slate-200 truncate">מעקב תלמידים</p>
+                </div>
+              </div>
+              <!-- Portal Image 3 -->
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950" onclick="openLightbox('112.jpeg', 'לוח השיגור של משימות ושלבי לימוד מותאמים')">
+                <img src="112.jpeg" alt="לוח השיגור" class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-[1.03]" onerror="this.outerHTML=fallbackImage('לוח השיגור')">
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-2 pt-5">
+                  <p class="text-[11px] font-bold text-slate-200 truncate">לוח שיגור משימות</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-xs text-slate-400 text-center mt-3 font-medium">לחצו על תמונה לצפייה מלאה 🔍</p>
+      </div>
+    </section>
+
+    <!-- Core Value Features Section -->
+    <section class="space-y-4 mb-10 pop-in">
+      <div class="bg-slate-900/40 border-2 border-slate-800/80 rounded-3xl p-6 space-y-5">
+        
+        <!-- Feature 1 -->
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-purple-500/15 flex items-center justify-center text-2xl shrink-0 border border-purple-500/30">🚀</div>
+          <div>
+            <h3 class="font-black text-base text-white">מייעל את תהליך הלמידה</h3>
+            <p class="text-sm text-slate-300 mt-1 leading-relaxed">בלי דפי עבודה מבלבלים - הכל מנוהל וחכם בתוך דשבורד ממוקד אחד.</p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-500/15 flex items-center justify-center text-2xl shrink-0 border border-indigo-500/30">📊</div>
+          <div>
+            <h3 class="font-black text-base text-white">סטטוס בזמן אמת על תרגול התלמיד</h3>
+            <p class="text-sm text-slate-300 mt-1 leading-relaxed">רואים בדיוק כמה זמן התלמיד תרגל בבית, איפה התקשה ואיפה גילה מסוגלות.</p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-violet-500/15 flex items-center justify-center text-2xl shrink-0 border border-violet-500/30">🎯</div>
+          <div>
+            <h3 class="font-black text-base text-white">תרגול מותאם וביטחון עצמי לתלמיד</h3>
+            <p class="text-sm text-slate-300 mt-1 leading-relaxed">משחקים שמנטרלים את הפחד מטעויות ומייצרים חוויית הצלחה מדהימה (במיוחד ליסודי וחטיבה).</p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-2xl shrink-0 border border-emerald-500/30">🎁</div>
+          <div>
+            <h3 class="font-black text-base text-white">גישה ללא עלות לפיילוט</h3>
+            <p class="text-sm text-slate-300 mt-1 leading-relaxed">שימוש מלא וחופשי במערכת עבור תלמידיכם ללא כל תשלום, בתמורה לפידבק קצר בלבד.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Personal Value Note -->
+    <section class="bg-indigo-950/25 border-2 border-indigo-500/25 rounded-3xl p-6 mb-10 pop-in">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl">💡</span>
+        <h4 class="font-black text-indigo-200 text-base">פנייה אישית ממפתח המערכת</h4>
+      </div>
+      <p class="text-sm md:text-base text-indigo-100 leading-relaxed font-medium">
+        אני יודע כמה אנרגיה הולכת לכם על תכנון שיעורים והכנת תרגולים מותאמים. 
+        <br><br>
+        פיתחתי את <strong>חשבונאוטיקה</strong> כדי להביא ערך אדיר לשיעורים שלכם (במיוחד עם ילדי היסודי). אני מזמין אתכם להצטרף אליי לפיילוט הקרוב שיהיה בליווי אישי וצמוד שלי.
+      </p>
+    </section>
+
+    <!-- Warning Info Box -->
+    <div class="bg-amber-500/10 border-2 border-amber-500/25 rounded-2xl p-5 mb-10 flex items-start gap-3.5 pop-in">
+      <span class="text-amber-400 text-2xl shrink-0">⚠️</span>
+      <p class="text-sm text-amber-100 leading-relaxed font-semibold">
+        <strong>חשוב לדעת:</strong> בגלל הליווי האישי לכל מורה, הקבלה לפיילוט היא מוגבלת מאוד ומבוצעת בהדרגה. התיעדוף ייקבע על פי מידת הפירוט שלכם בשאלון שלמטה.
+      </p>
     </div>
 
+    <!-- Combined Form and Success Section -->
+    <section class="mb-12 pop-in">
+      <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 shadow-2xl">
+        
+        <!-- Form Fields -->
+        <form id="pilot-form" onsubmit="handleFormSubmit(event)">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-black text-white">הגשת מועמדות לפיילוט 📬</h3>
+            <p class="text-sm text-slate-300 mt-1.5 font-medium">מלאו פרטים מדויקים ונחזור אליכם בהקדם</p>
+          </div>
 
-    <!-- ── Step 2: Lead Form ── -->
-    <div id="step-2" class="step-wrap hidden">
-      <div class="step-header">
-        <p class="step-label">שלב 3 מתוך 3</p>
-        <h2 class="step-title">הצטרפו לסיירת 📬</h2>
-        <p class="step-sub">מחיר השקה סמלי למצטרפים הראשונים — ניצור קשר תוך 24 שעות</p>
-      </div>
-
-      <div class="card">
-        <form id="lead-form" onsubmit="handleSubmit(event)">
-          <div style="display:flex;flex-direction:column;gap:16px;">
-
-            <div class="field">
-              <label for="f-name">שם הורה</label>
-              <input type="text" id="f-name" placeholder="למשל: רחל כהן" required />
+          <div class="space-y-6">
+            
+            <!-- Name Input -->
+            <div class="space-y-2">
+              <label for="f-name" class="text-sm font-black text-slate-200">שם מלא *</label>
+              <input type="text" id="f-name" class="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3.5 text-base font-bold focus:outline-none focus:border-purple-500 transition-all-300 touch-target" placeholder="למשל: נתנאל כהן" required />
             </div>
 
-            <div class="field">
-              <label for="f-email">מייל <span class="optional">(אופציונלי)</span></label>
-              <input type="email" id="f-email" placeholder="name@mail.com" dir="ltr" />
+            <!-- Email Input -->
+            <div class="space-y-2">
+              <label for="f-email" class="text-sm font-black text-slate-200">כתובת אימייל *</label>
+              <input type="email" id="f-email" class="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3.5 text-base font-bold focus:outline-none focus:border-purple-500 transition-all-300 touch-target text-right" placeholder="yourname@gmail.com" style="direction: ltr;" required />
             </div>
 
-            <div class="field">
-              <label for="f-phone">טלפון <span class="optional">(אופציונלי)</span></label>
-              <input type="tel" id="f-phone" placeholder="050-0000000" dir="ltr" />
+            <!-- Phone Input -->
+            <div class="space-y-2">
+              <label for="f-phone" class="text-sm font-black text-slate-200">מספר טלפון (וואטסאפ) *</label>
+              <input type="tel" id="f-phone" class="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3.5 text-base font-bold focus:outline-none focus:border-purple-500 transition-all-300 touch-target text-right" placeholder="050-0000000" style="direction: ltr;" required />
             </div>
 
-            <div class="field">
-              <label for="f-suggest">
-                איך הייתם קוראים לפלטפורמה? 💡
-                <span class="optional">(אופציונלי)</span>
-              </label>
-              <input type="text" id="f-suggest" class="purple-field"
-                placeholder="הציעו שם — הטוב ביותר ייבחר!"
-                maxlength="40"
-                oninput="onSuggestInput(this.value)" />
-              <p class="name-hint" id="name-hint"></p>
+            <!-- Students Count -->
+            <div class="space-y-2">
+              <label for="f-count" class="text-sm font-black text-slate-200">כמה תלמידים תרצו לצרף לפיילוט? *</label>
+              <input type="text" id="f-count" class="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3.5 text-base font-bold focus:outline-none focus:border-purple-500 transition-all-300 touch-target" placeholder="למשל: 3 תלמידים בכיתות ד-ו" required />
             </div>
 
-            <div class="promo-box">
-              <p class="promo-tag">מחיר השקה — שותפים להצלחה</p>
-              <p class="promo-text">גישה מלאה ל-10 המשחקים + דוח התקדמות הורים. ללא חידוש אוטומטי.</p>
+            <!-- Brief About Yourself -->
+            <div class="space-y-2">
+              <label for="f-about" class="text-sm font-black text-slate-200">ספרו לי קצת על עצמכם ועל הניסיון שלכם בקצרה *</label>
+              <textarea id="f-about" rows="3" class="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3.5 text-base font-bold focus:outline-none focus:border-purple-500 transition-all-300" placeholder="כמה זמן אתם מלמדים ומה האתגר שלכם בשיעורים..." required></textarea>
             </div>
 
-            <button type="submit" class="btn-submit glow-btn" id="btn-submit">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Error message container -->
+            <div id="error-message" class="hidden bg-rose-500/10 border-2 border-rose-500/25 text-rose-300 text-sm font-bold rounded-xl p-4 text-center"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-l from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-base py-4.5 px-6 rounded-xl transition-all-300 shadow-xl glow-btn touch-target flex items-center justify-center gap-2">
+              <span>הגשת מועמדות ושרייון מקום</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
               </svg>
-              <span id="btn-submit-text">אני רוצה להצטרף (מחיר השקה)</span>
             </button>
 
-            <p class="form-note">ללא חידוש אוטומטי • קונים רק מה שעובד</p>
+            <p class="text-[11px] text-slate-400 text-center font-bold">פיילוט חשבונאוטיקה 2026 • ההשתתפות ללא עלות ומותנית בקבלה</p>
           </div>
         </form>
-      </div>
-    </div>
 
-    <!-- ── Success ── -->
-    <div id="step-success" class="step-wrap hidden">
-      <div class="success-screen success-anim">
-        <div class="success-rocket">🚀</div>
-        <div>
-          <p class="success-title" id="success-title">ברוכים הבאים לסיירת! 🎉</p>
-          <p class="success-body">
-            קיבלנו את הפרטים שלכם.<br>
-            נחזור אליכם תוך 24 שעות עם הגישה למחיר ההשקה.<br>
-            <strong>זכרו: ללא חידוש אוטומטי — אתם שולטים בקצב.</strong>
+        <!-- Success Screen Overlay (Toggled via JS) -->
+        <div id="success-screen" class="hidden text-center py-10 space-y-6 animate-[pop-in_0.5s_ease_both]">
+          <div class="text-7xl animate-bounce">🚀</div>
+          <h4 class="text-3xl font-black text-emerald-400">ברוכים הבאים לפיילוט!</h4>
+          <p class="text-base text-slate-200 leading-relaxed max-w-sm mx-auto font-medium">
+            הפרטים שלכם נקלטו בהצלחה באקסל שלנו.<br>
+            <strong>נתנאל</strong> יעבור על הנתונים ויחזור אליכם בוואטסאפ או במייל תוך 24 שעות עם עדכון ותשובות.
           </p>
+          <div class="inline-flex items-center gap-2.5 bg-emerald-500/10 border border-emerald-500/25 px-5 py-3 rounded-2xl text-emerald-300 text-sm font-bold mx-auto">
+            <span>נרשם בהצלחה • נדבר בקרוב! 🙌</span>
+          </div>
         </div>
-        <div class="success-badge">
-          <span class="success-check">✓</span>
-          <span>נרשמתם בהצלחה! נדבר בקרוב 🙌</span>
-        </div>
-        <div class="success-name-box" id="success-name-box">
-          <p>🗳️ הצעת השם שלכם <strong id="success-name-text"></strong> נרשמה — תודה!</p>
-        </div>
-        <p class="success-footer">חשבונאוטיקה — מחזירים את המוטיבציה הביתה</p>
+
       </div>
+    </section>
+
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 bg-slate-950/95 z-[999] flex flex-col items-center justify-center p-4 hidden" onclick="closeLightbox()">
+    <button class="absolute top-4 left-4 bg-slate-900 border-2 border-slate-800 text-slate-400 hover:text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-2xl transition-all-300 z-[1000]" onclick="closeLightbox()">&times;</button>
+    <div class="max-w-3xl w-full max-h-[80vh] flex items-center justify-center p-2" onclick="event.stopPropagation()">
+      <div id="lightbox-media-container" class="w-full flex items-center justify-center"></div>
     </div>
+    <p id="lightbox-caption" class="text-sm text-slate-200 font-bold mt-4 text-center px-4 max-w-md"></p>
+  </div>
 
-  </div><!-- /content -->
-</div><!-- /app -->
+  <!-- Main JavaScript Logic -->
+  <script>
+    // ── Stars Canvas Background ──────────────────────────────────────────────
+    (function () {
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
+      const stars = [];
+      const COUNT = 110;
 
-<script>
-  // ── Stars ──────────────────────────────────────────────────────────────────
-  (function () {
-    const canvas = document.getElementById('stars-canvas');
-    const ctx = canvas.getContext('2d');
-    const stars = [];
-    const COUNT = 120;
-
-    function resize() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function init() {
-      resize();
-      stars.length = 0;
-      for (let i = 0; i < COUNT; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.2 + 0.3,
-          phase: Math.random() * Math.PI * 2,
-          speed: (Math.random() * 0.6 + 0.3) * 0.01,
-        });
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
       }
-    }
 
-    function draw(ts) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const s of stars) {
-        const opacity = (Math.sin(ts * s.speed + s.phase) + 1) / 2;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-
-    window.addEventListener('resize', init);
-    init();
-    requestAnimationFrame(draw);
-  })();
-
-  // ── State ──────────────────────────────────────────────────────────────────
-  let currentStep = 0;
-  const TOTAL_STEPS = 3; // Reduced to 3 steps since we merged the method into slider
-
-  // ── Step dots ──────────────────────────────────────────────────────────────
-  function renderDots() {
-    const wrap = document.getElementById('step-dots');
-    wrap.innerHTML = '';
-    for (let i = 0; i < TOTAL_STEPS; i++) {
-      const d = document.createElement('div');
-      d.className = 'dot ' + (i < currentStep ? 'past' : i === currentStep ? 'current' : 'future');
-      wrap.appendChild(d);
-    }
-  }
-  renderDots();
-
-  // ── Navigation ─────────────────────────────────────────────────────────────
-  function showStep(idx) {
-    for (let i = 0; i < TOTAL_STEPS; i++) {
-      const el = document.getElementById('step-' + i);
-      if(el) el.classList.add('hidden');
-    }
-    document.getElementById('step-success').classList.add('hidden');
-    const el = document.getElementById('step-' + idx);
-    if (el) {
-      el.classList.remove('hidden');
-      el.classList.remove('pop-in');
-      void el.offsetWidth; // reflow
-      el.classList.add('pop-in');
-    }
-    document.getElementById('content').scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goNext() {
-    currentStep++;
-    renderDots();
-    showStep(currentStep);
-  }
-
-  // ── Step 0: Drag Puzzle ────────────────────────────────────────────────────
-  const slotData = [null, null, null, null, null];
-  const CORRECT = ['12', '÷', '3', '+', '6'];
-
-  const chip = (id) => document.getElementById(id);
-  const slot = (i) => document.getElementById('slot-' + i);
-
-  function renderSlots() {
-    for (let i = 0; i < 5; i++) {
-      const el = slot(i);
-      const d  = slotData[i];
-      el.textContent = d ? d.val : '?';
-      if (d) el.classList.add('filled');
-      else el.classList.remove('filled');
-    }
-    const usedIds = slotData.filter(Boolean).map(d => d.id);
-    document.querySelectorAll('.puzzle-chip').forEach(ch => {
-      ch.classList.toggle('gone', usedIds.includes(ch.dataset.id));
-    });
-  }
-
-  function slotClick(i) {
-    if (slotData[i]) {
-      slotData[i] = null;
-      hideFeedback();
-      renderSlots();
-    }
-  }
-
-  function hideFeedback() {
-    document.getElementById('fb-correct').classList.remove('show');
-    document.getElementById('fb-wrong').classList.remove('show');
-  }
-
-  function firstEmptySlot(type) {
-    for (let i = 0; i < 5; i++) {
-      const slotType = i % 2 === 0 ? 'num' : 'op';
-      if (slotType === type && !slotData[i]) return i;
-    }
-    return -1;
-  }
-
-  let dragging = null;
-  let overSlot = -1;
-
-  function startDrag(e, chipEl) {
-    e.preventDefault();
-    const id   = chipEl.dataset.id;
-    const type = chipEl.dataset.type;
-    const val  = chipEl.dataset.val;
-
-    if (chipEl.classList.contains('gone')) return;
-
-    const r  = chipEl.getBoundingClientRect();
-    const cx = e.clientX ?? e.touches?.[0]?.clientX;
-    const cy = e.clientY ?? e.touches?.[0]?.clientY;
-    const ox = cx - r.left;
-    const oy = cy - r.top;
-
-    const ghost = chipEl.cloneNode(true);
-    ghost.style.cssText = `position:fixed;left:${cx - ox}px;top:${cy - oy}px;width:${r.width}px;height:${r.height}px;z-index:9999;pointer-events:none;transform:scale(1.15) rotate(-3deg);box-shadow:0 12px 28px rgba(0,0,0,.35);transition:none;`;
-    ghost.classList.remove('gone');
-    document.body.appendChild(ghost);
-
-    dragging = { id, type, val, ghost, ox, oy, originSlot: -1 };
-
-    const onMove = (ev) => {
-      ev.preventDefault();
-      const mx = ev.clientX ?? ev.touches?.[0]?.clientX;
-      const my = ev.clientY ?? ev.touches?.[0]?.clientY;
-      ghost.style.left = (mx - dragging.ox) + 'px';
-      ghost.style.top  = (my - dragging.oy) + 'px';
-
-      let found = -1;
-      for (let i = 0; i < 5; i++) {
-        const slotType = i % 2 === 0 ? 'num' : 'op';
-        if (slotType !== dragging.type) continue;
-        const sr = slot(i).getBoundingClientRect();
-        if (mx >= sr.left && mx <= sr.right && my >= sr.top && my <= sr.bottom) {
-          found = i; break;
+      function init() {
+        resize();
+        stars.length = 0;
+        for (let i = 0; i < COUNT; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.3 + 0.3,
+            phase: Math.random() * Math.PI * 2,
+            speed: (Math.random() * 0.5 + 0.2) * 0.01
+          });
         }
       }
-      if (found !== overSlot) {
-        if (overSlot >= 0) slot(overSlot).classList.remove('over');
-        overSlot = found;
-        if (overSlot >= 0) slot(overSlot).classList.add('over');
-      }
-    };
 
-    const onEnd = (ev) => {
-      ev.preventDefault();
-      ghost.remove();
-      if (overSlot >= 0) slot(overSlot).classList.remove('over');
-
-      if (overSlot >= 0) {
-        if (slotData[overSlot]) slotData[overSlot] = null;
-        slotData[overSlot] = { id: dragging.id, type: dragging.type, val: dragging.val };
-        hideFeedback();
+      function draw(ts) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const s of stars) {
+          const opacity = (Math.sin(ts * s.speed + s.phase) + 1) / 2;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${opacity * 0.85})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
       }
 
-      overSlot = -1;
-      dragging = null;
-      renderSlots();
+      window.addEventListener('resize', init);
+      init();
+      requestAnimationFrame(draw);
+    })();
 
-      document.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerup',   onEnd);
-    };
+    // ── Tab Management ───────────────────────────────────────────────────────
+    function switchTab(tabId) {
+      const isGames = tabId === 'games';
+      
+      const gamesBtn = document.getElementById('tab-btn-games');
+      const portalBtn = document.getElementById('tab-btn-portal');
+      const gamesContent = document.getElementById('tab-content-games');
+      const portalContent = document.getElementById('tab-content-portal');
 
-    document.addEventListener('pointermove', onMove, { passive: false });
-    document.addEventListener('pointerup',   onEnd,  { passive: false });
-  }
-
-  document.querySelectorAll('.puzzle-chip').forEach(ch => {
-    ch.addEventListener('pointerdown', (e) => startDrag(e, ch));
-    ch.addEventListener('click', () => {
-      if (ch.classList.contains('gone')) return;
-      const type = ch.dataset.type;
-      const idx  = firstEmptySlot(type);
-      if (idx < 0) return;
-      slotData[idx] = { id: ch.dataset.id, type, val: ch.dataset.val };
-      hideFeedback();
-      renderSlots();
-    });
-  });
-
-  function checkPuzzle() {
-    if (slotData.some(d => !d)) {
-      const eq = document.getElementById('puzzle-eq');
-      eq.classList.add('shake');
-      setTimeout(() => eq.classList.remove('shake'), 400);
-      return;
-    }
-    const correct = slotData.every((d, i) => d.val === CORRECT[i]);
-    document.getElementById('fb-correct').classList.toggle('show', correct);
-    document.getElementById('fb-wrong').classList.toggle('show', !correct);
-  }
-
-  renderSlots();
-
-  // ── Step 1: Slider ─────────────────────────────────────────────────────────
-  const LEVELS = [
-    { max: 15, label: 'טירון 🌱',  color: '#6ee7b7' },
-    { max: 30, label: 'חוקר 🔭',   color: '#7dd3fc' },
-    { max: 45, label: 'גיבור 🦸',  color: '#a5b4fc' },
-    { max: 60, label: 'אלוף 🏆',   color: '#fde68a' },
-  ];
-
-  const MESSAGES = [
-    { max: 15, text: 'חיסכון של כ-₪150 בחודש לעומת שיעור פרטי אחד בשבוע' },
-    { max: 30, text: 'חיסכון של כ-₪300 בחודש — שתי פגישות פרטיות פחות' },
-    { max: 45, text: 'חיסכון של כ-₪450 בחודש — כמעט קורס פרטי שלם 💵' },
-    { max: 60, text: 'חיסכון של כ-₪500+ בחודש — במקום מורה פרטי שלם 💰' },
-  ]; 
-
-  function onSlider(val) {
-    val = Number(val);
-    document.getElementById('slider-val').textContent = val;
-
-    const level = LEVELS.find(l => val <= l.max) || LEVELS[LEVELS.length - 1];
-    const badge = document.getElementById('level-badge');
-    badge.textContent = level.label;
-    badge.style.color = level.color;
-
-    const msg = MESSAGES.find(m => val <= m.max) || MESSAGES[MESSAGES.length - 1];
-    document.getElementById('info-box').textContent = msg.text;
-
-    renderChart(val);
-  }
-
-  function renderChart(minutes) {
-    const svg = document.getElementById('chart-svg');
-    svg.querySelectorAll('.bar-g').forEach(el => el.remove());
-
-    const growthRate = minutes / 60;
-    const maxH = 80;
-    const color = minutes <= 15 ? '#818cf8' : minutes <= 35 ? '#a78bfa' : '#c084fc';
-
-    for (let i = 0; i < 8; i++) {
-      const h = Math.min(maxH, 8 + i * growthRate * 11);
-      const x = 15 + i * 26;
-      const y = 90 - h;
-
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.classList.add('bar-g');
-
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      rect.setAttribute('x', x); rect.setAttribute('y', y);
-      rect.setAttribute('width', 18); rect.setAttribute('height', h);
-      rect.setAttribute('rx', 3); rect.setAttribute('fill', color);
-      rect.setAttribute('opacity', '0.8'); rect.style.transition = 'all .4s ease';
-
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', x + 9); label.setAttribute('y', 98);
-      label.setAttribute('text-anchor', 'middle'); label.setAttribute('font-size', 7);
-      label.setAttribute('fill', 'rgba(255,255,255,0.4)'); label.textContent = 'ש' + (i + 1);
-
-      g.appendChild(rect); g.appendChild(label); svg.appendChild(g);
-    }
-  }
-
-  renderChart(20);
-
-  // ── Forms ──────────────────────────────────────────────────────────────────
-  function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-
-  function onSuggestInput(val) {
-    const hint = document.getElementById('name-hint');
-    const trimmed = val.trim();
-    if (trimmed) {
-      hint.textContent = '✨ "' + trimmed + '" — נשמע מבטיח!';
-      hint.classList.add('show');
-    } else {
-      hint.classList.remove('show');
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const name    = document.getElementById('f-name').value.trim();
-    const email   = document.getElementById('f-email').value.trim();
-    const phone   = document.getElementById('f-phone').value.trim();
-    const suggest = document.getElementById('f-suggest').value.trim();
-
-    if (!name) return alert('שם הוא חובה');
-    if (!email && !phone) return alert('צריך להוסיף מייל או טלפון לפחות');
-    if (email && !isValidEmail(email)) return alert('פורמט מייל לא תקין');
-
-    const btn = document.getElementById('btn-submit');
-    const txt = document.getElementById('btn-submit-text');
-    btn.disabled = true;
-    txt.textContent = 'שולח...';
-    txt.classList.add('sending-dots');
-
-    const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbyR0vKio-HxDY_xZ44XxXGbSVTWPwDPj29gcfebIGxy83jS0I2i1m2rO7s8RMWo8_u4xA/exec";
-
-    const payload = { name: name, email: email, phone: phone, platformName: suggest || '(לא הוצע שם)' };
-
-    fetch(GOOGLE_APP_URL, {
-      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-    })
-    .then(() => {
-      document.getElementById('step-2').classList.add('hidden');
-      const success = document.getElementById('step-success');
-      success.classList.remove('hidden');
-      success.classList.remove('pop-in'); void success.offsetWidth; success.classList.add('pop-in');
-
-      document.getElementById('success-title').textContent = 'תודה רבה, ' + name + '!';
-      if (suggest) {
-        document.getElementById('success-name-text').textContent = '"' + suggest + '"';
-        document.getElementById('success-name-box').classList.add('show');
+      if (isGames) {
+        gamesBtn.className = "py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-purple-200 bg-purple-600/30 border border-purple-500/30";
+        portalBtn.className = "py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-slate-400 hover:text-slate-200";
+        gamesContent.classList.remove('hidden');
+        portalContent.classList.add('hidden');
+      } else {
+        portalBtn.className = "py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-purple-200 bg-purple-600/30 border border-purple-500/30";
+        gamesBtn.className = "py-3 px-3 rounded-xl text-sm font-black transition-all-300 text-slate-400 hover:text-slate-200";
+        portalContent.classList.remove('hidden');
+        gamesContent.classList.add('hidden');
       }
-      document.getElementById('content').scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('step-dots').style.display = 'none';
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      txt.textContent = 'אופס, נסה שוב';
-      btn.disabled = false;
-      txt.classList.remove('sending-dots');
-    });
-  }
-</script>
+    }
+
+    // ── Lightbox Viewport ───────────────────────────────────────────────────
+    function openLightbox(src, caption) {
+      const lightbox = document.getElementById('lightbox');
+      const mediaContainer = document.getElementById('lightbox-media-container');
+      const cap = document.getElementById('lightbox-caption');
+
+      mediaContainer.innerHTML = `<img id="lightbox-img" src="${src}" alt="תצוגה מוגדלת" class="max-w-full max-h-[70vh] rounded-2xl shadow-2xl object-contain border-2 border-slate-800">`;
+
+      const img = document.getElementById('lightbox-img');
+      img.onerror = function() {
+        mediaContainer.innerHTML = fallbackImage(caption);
+      };
+
+      cap.textContent = caption;
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // ── Form Submission ──────────────────────────────────────────────────────
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const errorDiv = document.getElementById('error-message');
+      errorDiv.classList.add('hidden');
+
+      const name = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const phone = document.getElementById('f-phone').value.trim();
+      const studentsCount = document.getElementById('f-count').value.trim();
+      const about = document.getElementById('f-about').value.trim();
+
+      const btn = document.getElementById('submit-btn');
+      const originalBtnHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="animate-pulse">שולח נתונים לאקסל...</span>`;
+
+      // GOOGLE APPS SCRIPT WEB APP URL
+      const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbyR0vKio-HxDY_xZ44XxXGbSVTWPwDPj29gcfebIGxy83jS0I2i1m2rO7s8RMWo8_u4xA/exec";
+
+      const payload = {
+        name: name,
+        email: email,
+        phone: phone,
+        studentsCount: studentsCount,
+        about: about
+      };
+
+      fetch(GOOGLE_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        document.getElementById('pilot-form').classList.add('hidden');
+        document.getElementById('success-screen').classList.remove('hidden');
+        document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch((error) => {
+        console.error('Error during submission:', error);
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHTML;
+        errorDiv.textContent = "אופס! נראה שישנה שגיאת תקשורת קלה. נסו שנית.";
+        errorDiv.classList.remove('hidden');
+      });
+    }
+  </script>
 </body>
 </html>
+```
+eof
+
+### מה התחדש בדף:
+1. **קיצור דרמטי של המלל:** הסרתי תיאורים חוזרים וניסוחים ארוכים. כל סעיף בערך המערכת ובפנייה האישית שונה למשפטים קצרים ומחודדים שמסבירים בדיוק מה הערך שהמורה יקבל מהמערכת וממך כמפתח.
+2. **הגדלת הפונטים בצורה משמעותית:**
+   * כותרת ה-Hero גדלה מ-`text-3xl` ל-`text-4xl` עוצמתי עם הדגשת `font-black`.
+   * פסקת המשנה של ה-Hero שודרגה ל-`text-base` ו-`text-lg`.
+   * כותרות היתרונות שודרגו מ-`text-sm` ל-`text-base` והתיאורים שלהן שודרגו מ-`text-xs` ל-`text-sm` עם גוון בהיר (`text-slate-300`) לניגודיות מעולה בשמש או בנייד.
+   * פסקת הפנייה האישית של נתנאל הורחבה ועוצבה עם פונט נוח וקריא ברוחב `text-sm md:text-base`.
+3. **שמירה על ה-DOM וה-Lightbox:** כל המערך הלוגי, גלריית הלשוניות וה-Lightbox המוגדל המשודרג נשמרו בצורה יציבה ובטוחה.
