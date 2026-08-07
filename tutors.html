@@ -35,6 +35,22 @@
       pointer-events: none;
       z-index: 0;
     }
+
+    /* Modern Scrollbar for Instructions */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.5);
+    }
   </style>
 </head>
 <body class="text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
@@ -68,11 +84,11 @@
   <!-- Main Container -->
   <main class="relative z-10 max-w-5xl mx-auto px-5 py-12 lg:py-16 space-y-16">
 
-    <!-- Hero Section -->
-    <div class="grid lg:grid-cols-12 gap-10 items-center">
+    <!-- Hero & Registration Section -->
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
       
-      <!-- Text Content -->
-      <div class="lg:col-span-7 space-y-6 text-right">
+      <!-- Text Content (Right) -->
+      <div class="lg:col-span-7 space-y-6 text-right lg:sticky lg:top-24">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-inner float-badge">
           <span>✨</span>
           <span>מערכת האבחון והתרגול המתקדמת למורי מתמטיקה</span>
@@ -105,27 +121,51 @@
           </div>
         </div>
 
-        <!-- Badges -->
-        <div class="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800/80">
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center">
-            <div class="text-xl font-black text-emerald-400">100%</div>
-            <div class="text-[11px] text-slate-400 font-medium">תואם תכנית הלימודים</div>
+        <!-- ALBUM / CAROUSEL OF SELECTED GAMES -->
+        <div class="pt-6 border-t border-slate-800/80 space-y-3">
+          <h3 class="text-sm font-black text-emerald-400 tracking-wide">🎮 הצצה למשחקים נבחרים מתוך המערכת:</h3>
+          
+          <!-- Image Album Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(0)">
+              <img src="111.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="מעבדת שברים" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">FractionLab - מעבדת שברים</span>
+              </div>
+            </div>
+            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(1)">
+              <img src="112.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="משחק המאזניים" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">Balance - מאזניים אלגבריים</span>
+              </div>
+            </div>
+            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(2)">
+              <img src="113.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="משחק המכלים" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">Tank - מכלים ועשרוניים</span>
+              </div>
+            </div>
+            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(3)">
+              <img src="114.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="פתרון משוואות" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">Equations - משוואות חזותיות</span>
+              </div>
+            </div>
           </div>
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center">
-            <div class="text-xl font-black text-cyan-400">10+</div>
-            <div class="text-[11px] text-slate-400 font-medium">משחקי עומק לימודיים</div>
-          </div>
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center">
-            <div class="text-xl font-black text-teal-300">0 ש"ח</div>
-            <div class="text-[11px] text-slate-400 font-medium">הרשמה לגרסת ניסיון</div>
+          <div class="flex justify-start">
+            <button onclick="openPhotoModal(0)" class="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1">
+              🔍 פתח אלבום תמונות מלא של המשחקים (7 תמונות) ←
+            </button>
           </div>
         </div>
 
       </div>
 
-      <!-- Lead Registration Form Card -->
-      <div id="register-section" class="lg:col-span-5 scroll-mt-24">
-        <div class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
+      <!-- Left Action Area (Form / Onboarding Guide) -->
+      <div id="register-section" class="lg:col-span-5 scroll-mt-24 w-full">
+        
+        <!-- THE REGISTRATION FORM -->
+        <div id="form-card" class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
           
           <div class="space-y-2 text-center">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 mx-auto flex items-center justify-center text-2xl">
@@ -137,18 +177,6 @@
             </p>
           </div>
 
-          <!-- SUCCESS SCREEN -->
-          <div id="success-screen" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-6 text-center space-y-4">
-            <div class="w-14 h-14 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-2xl">
-              ✅
-            </div>
-            <h3 class="text-lg font-bold text-emerald-300">ההרשמה התקבלה בהצלחה!</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              הנתונים נשמרו בהצלחה בגיליון האקסל. נציג צוות חשבונאוטיקה יצור איתך קשר בטלפון/בוואטסאפ בהקדם לקבלת גישת המורה.
-            </p>
-          </div>
-
-          <!-- FORM -->
           <form id="pilot-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
             <div id="error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
 
@@ -206,11 +234,85 @@
             </button>
 
             <p class="text-[11px] text-center text-slate-500">
-              🔒 הפרטים שמורים ומיועדים לייצוא ישיר לאקסל המורים.
+              🔒 הפרטים נשמרים ישירות בגיליון אקסל מורים מאובטח.
             </p>
           </form>
 
         </div>
+
+        <!-- SUCCESS SCREEN & DETAILED TEACHER ONBOARDING GUIDE -->
+        <div id="instructions-card" class="hidden relative bg-slate-900/95 border-2 border-emerald-500 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-6">
+          
+          <!-- Success Alert Header -->
+          <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-center space-y-2">
+            <div class="w-12 h-12 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-xl">
+              ✅
+            </div>
+            <h3 class="text-lg font-black text-emerald-300">ההרשמה בוצעה בהצלחה!</h3>
+            <p class="text-xs text-slate-300">
+              נרשמת בהצלחה באקסל המורים. להלן הוראות ההפעלה והגישה שלך:
+            </p>
+          </div>
+
+          <!-- Onboarding Guide Steps (Scrollable Container) -->
+          <div class="space-y-5 max-h-[420px] overflow-y-auto pr-1.5 custom-scrollbar text-right">
+            
+            <div class="border-b border-slate-800 pb-3">
+              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
+                <span>🔑</span>
+                <span>שלב 1: כניסה למערכת המורים</span>
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                היכנס לדשבורד המורה הראשי בכתובת:
+                <a href="/teacher" target="_blank" class="text-cyan-400 hover:underline font-bold block mt-1">mathapp.vercel.app/teacher</a>
+                השתמש באימייל שנרשמת איתו כדי להתחבר ללוח הבקרה שלך.
+              </p>
+            </div>
+
+            <div class="border-b border-slate-800 pb-3">
+              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
+                <span>🏫</span>
+                <span>שלב 2: יצירת כיתה ושיוך תלמידים</span>
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                בתוך דשבורד המורה, לחץ על **"צור כיתה חדשה"**. המערכת תפיק קוד כיתה ייחודי. 
+                תן לתלמידים/להורים את קוד הכיתה כדי שיזינו אותו בממשק הילד, או צור עבורם קודי כניסה מהירים (Tokens) ישירות מהלוח.
+              </p>
+            </div>
+
+            <div class="border-b border-slate-800 pb-3">
+              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
+                <span>📋</span>
+                <span>שלב 3: הקצאת משימות למידה</span>
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                באפשרותך ללחוץ על **"נהל משימות"** ולהקצות שלבים ספציפיים לתלמיד או לכיתה שלמה (למשל: תרגול שברים ברמה 4). התלמיד יראה את המשימה מודגשת בראש המשחק שלו.
+              </p>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
+                <span>📈</span>
+                <span>שלב 4: מעקב וזיהוי קשיים (טלמטריה)</span>
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                לוח הבקרה ינתח עבורך אוטומטית מתי התלמיד מנחש, מתי הוא מתוסכל ומתי הוא פותר בצורה רציפה. תוכל לייצא את כל הנתונים לקובץ Excel מרוכז בלחיצה אחת!
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Action Button to Teacher Dashboard -->
+          <a
+            href="/teacher"
+            target="_blank"
+            class="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-center text-sm block shadow-lg shadow-emerald-500/20 transition active:scale-[0.98]"
+          >
+            כניסה לדשבורד מורה עכשיו 🚀
+          </a>
+
+        </div>
+
       </div>
 
     </div>
@@ -251,12 +353,33 @@
 
   </main>
 
+  <!-- Photo Modal Overlay -->
+  <div id="photo-modal" class="fixed inset-0 z-50 hidden bg-slate-950/95 flex items-center justify-center p-4">
+    <button onclick="closePhotoModal()" class="absolute top-6 right-6 text-white text-3xl font-black hover:text-slate-300 transition">&times;</button>
+    
+    <div class="max-w-4xl w-full flex flex-col items-center gap-4">
+      <div class="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
+        <img id="modal-image" src="111.jpeg" class="w-full h-full object-contain" />
+        
+        <!-- Navigation Buttons -->
+        <button onclick="prevPhoto()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white flex items-center justify-center font-bold transition">&larr;</button>
+        <button onclick="nextPhoto()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white flex items-center justify-center font-bold transition">&rarr;</button>
+      </div>
+      
+      <!-- Caption -->
+      <p id="modal-caption" class="text-sm font-bold text-emerald-400 text-center"></p>
+      
+      <!-- Thumbnail Indicator dots -->
+      <div class="flex gap-2" id="modal-dots"></div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="py-6 px-5 border-t border-slate-800/80 text-center text-xs text-slate-500 relative z-10">
     © 2026 חשבונאוטיקה - פיילוט מורים פרטיים. כל הזכויות שמורות.
   </footer>
 
-  <!-- Background Stars Animation & Submission Logic -->
+  <!-- Background Stars Animation & Logic -->
   <script>
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
@@ -299,7 +422,67 @@
     resizeCanvas();
     drawStars();
 
-    // ── Ingestion to Google Apps Script (Google Sheet Excel) ───────────────────
+    // ── Photo Album Carousel Data & Logic ──────────────────────────────────────
+    const albumData = [
+      { src: '111.jpeg', label: 'FractionLab - מעבדת שברים אינטראקטיבית לחקר מושג השבר' },
+      { src: '112.jpeg', label: 'Balance - מאזניים אלגבריים ואיזון משוואות בצורה מוחשית' },
+      { src: '113.jpeg', label: 'Tank - למידת שברים עשרוניים ואחוזים באמצעות מילוי מכלים' },
+      { src: '114.jpeg', label: 'Equations - ייצוג חזותי ופתרון משוואות עם משתנים' },
+      { src: '115.jpeg', label: 'MultiplicationChamp - פיתוח ראייה מרחבית ולימוד לוח הכפל' },
+      { src: '116.jpeg', label: 'JuniorGrid - גאומטריה, שטחים וכפל מבוסס רשת' },
+      { src: '117.jpeg', label: 'Magic Patterns - זיהוי חוקיות, סדרות ותבניות מספריות' }
+    ];
+
+    let currentPhotoIdx = 0;
+
+    function openPhotoModal(idx) {
+      currentPhotoIdx = idx;
+      updateModalPhoto();
+      document.getElementById('photo-modal').classList.remove('hidden');
+    }
+
+    function closePhotoModal() {
+      document.getElementById('photo-modal').classList.add('hidden');
+    }
+
+    function nextPhoto() {
+      currentPhotoIdx = (currentPhotoIdx + 1) % albumData.length;
+      updateModalPhoto();
+    }
+
+    function prevPhoto() {
+      currentPhotoIdx = (currentPhotoIdx - 1 + albumData.length) % albumData.length;
+      updateModalPhoto();
+    }
+
+    // Update Indicators
+    function updateModalPhoto() {
+      const img = document.getElementById('modal-image');
+      const caption = document.getElementById('modal-caption');
+      img.src = albumData[currentPhotoIdx].src;
+      caption.textContent = albumData[currentPhotoIdx].label;
+
+      const dotsContainer = document.getElementById('modal-dots');
+      dotsContainer.innerHTML = '';
+      albumData.forEach((item, index) => {
+        const dot = document.createElement('button');
+        dot.className = `w-2 h-2 rounded-full transition ${index === currentPhotoIdx ? 'bg-emerald-400 w-4' : 'bg-slate-700'}`;
+        dot.onclick = () => openPhotoModal(index);
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePhotoModal();
+      if (e.key === 'ArrowRight' && !document.getElementById('photo-modal').classList.contains('hidden')) nextPhoto();
+      if (e.key === 'ArrowLeft' && !document.getElementById('photo-modal').classList.contains('hidden')) prevPhoto();
+    });
+
+    document.getElementById('photo-modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('photo-modal')) closePhotoModal();
+    });
+
+    // ── Form Submission to Google Apps Script ──────────────────────────────────
     function handleFormSubmit(e) {
       e.preventDefault();
       
@@ -316,7 +499,7 @@
       btn.disabled = true;
       btn.innerHTML = `<span>שולח נתונים... ⏳</span>`;
 
-      // Google Apps Script Web App Ingestion (Google Sheet Integration)
+      // Google Apps Script Web App URL
       const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbxwNr33WvZnQDjT4gjpDN9WbFQJ4AWTSrBTxtj5xSkzgq6HJNrQ-yMLH7l1Ic9Mlf7q/exec";
 
       fetch(GOOGLE_APP_URL, {
@@ -326,8 +509,10 @@
         body: JSON.stringify({ name: name, phone: phone, email: email, studentsCount: studentsCount })
       })
       .then(() => {
-        document.getElementById('pilot-form').classList.add('hidden');
-        document.getElementById('success-screen').classList.remove('hidden');
+        // Transition: Hide form and reveal onboarding guide!
+        document.getElementById('form-card').classList.add('hidden');
+        document.getElementById('instructions-card').classList.remove('hidden');
+        document.getElementById('register-section').scrollIntoView({ behavior: 'smooth' });
       })
       .catch((error) => {
         console.error('Error submitting form:', error);
