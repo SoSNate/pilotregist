@@ -22,8 +22,8 @@
       50% { transform: translateY(-6px); }
     }
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px 2px rgba(16, 185, 129, 0.35); }
-      50% { box-shadow: 0 0 35px 8px rgba(16, 185, 129, 0.65); }
+      0%, 100% { box-shadow: 0 0 25px 3px rgba(16, 185, 129, 0.25); }
+      50% { box-shadow: 0 0 40px 8px rgba(16, 185, 129, 0.55); }
     }
 
     .float-badge { animation: float-badge 3.5s ease-in-out infinite; }
@@ -34,22 +34,6 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-    }
-
-    /* Modern Scrollbar for Instructions */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(16, 185, 129, 0.3);
-      border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: rgba(16, 185, 129, 0.5);
     }
   </style>
 </head>
@@ -75,279 +59,275 @@
         </div>
       </div>
 
-      <a href="#register-section" class="px-4 py-2 text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl transition">
+      <a href="#step-3-register" class="px-4 py-2 text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl transition">
         הרשמה לניסיון 🚀
       </a>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="relative z-10 max-w-5xl mx-auto px-5 py-12 lg:py-16 space-y-16">
+  <!-- Main Container (Vertical Steps Layout) -->
+  <main class="relative z-10 max-w-4xl mx-auto px-5 py-12 space-y-20">
 
-    <!-- Hero & Registration Section -->
-    <div class="grid lg:grid-cols-12 gap-10 items-start">
-      
-      <!-- Text Content (Right) -->
-      <div class="lg:col-span-7 space-y-6 text-right lg:sticky lg:top-24">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-inner float-badge">
-          <span>✨</span>
-          <span>מערכת האבחון והתרגול המתקדמת למורי מתמטיקה</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-[1.15]">
-          הפוך כל תלמיד ל-<br />
-          <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-            מאסטר בחשבון
-          </span>
-        </h1>
-
-        <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-medium max-w-xl">
-          מערכת אבחון חכמה, משחקי חקר ויזואליים ודשבורד מעקב בזמן אמת – שתוכננו במיוחד עבור מורים פרטיים שרוצים להשיג תוצאות מדהימות במינימום זמן.
-        </p>
-
-        <!-- Bullet Points -->
-        <div class="space-y-3 pt-2">
-          <div class="flex items-center gap-3 text-slate-200 text-sm font-medium">
-            <span class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs">✓</span>
-            <span>זיהוי מדויק בזמן אמת מתי התלמיד תקוע, מתוסכל או מנחש</span>
-          </div>
-          <div class="flex items-center gap-3 text-slate-200 text-sm font-medium">
-            <span class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs">✓</span>
-            <span>מעל 10 משחקי עומק פדגוגיים שמחליפים דפי עבודה משעממים</span>
-          </div>
-          <div class="flex items-center gap-3 text-slate-200 text-sm font-medium">
-            <span class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs">✓</span>
-            <span>דו"חות התקדמות מרשימים להורים בלחיצת כפתור אחת</span>
-          </div>
-        </div>
-
-        <!-- ALBUM / CAROUSEL OF SELECTED GAMES (WITH GIFS) -->
-        <div class="pt-6 border-t border-slate-800/80 space-y-3">
-          <h3 class="text-sm font-black text-emerald-400 tracking-wide">🎬 סרטוני גיימפליי ומשחקים פעילים במערכת:</h3>
-          
-          <!-- Image Album Grid (showing GIFs as moving previews) -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(0)">
-              <img src="כפל 1 .gif" class="w-full h-full object-cover" alt="משחק כפל" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">גיימפליי: תרגול כפל חזותי</span>
-              </div>
-            </div>
-            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(1)">
-              <img src="כפל 2.gif" class="w-full h-full object-cover" alt="משחק לוח הכפל" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">גיימפליי: לוח כפל מרחבי</span>
-              </div>
-            </div>
-            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(2)">
-              <img src="משוואות .gif" class="w-full h-full object-cover" alt="משוואות ויזואליות" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">גיימפליי: פתרון משוואות</span>
-              </div>
-            </div>
-            <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(3)">
-              <img src="צורות .gif" class="w-full h-full object-cover" alt="צורות וגאומטריה" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">גיימפליי: גאומטריה ושטח</span>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-start">
-            <button onclick="openPhotoModal(0)" class="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1">
-              🔍 פתח אלבום מלא של המשחקים והסרטונים (11 פריטים) ←
-            </button>
-          </div>
-        </div>
-
+    <!-- ── השלב הראשון: כותרת ראשית והסבר קצר ── -->
+    <section class="text-center space-y-6 pt-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-inner float-badge">
+        <span>✨</span>
+        <span>שלב 1: מערכת האבחון והתרגול המתקדמת למורי מתמטיקה</span>
       </div>
 
-      <!-- Left Action Area (Form / Onboarding Guide) -->
-      <div id="register-section" class="lg:col-span-5 scroll-mt-24 w-full">
-        
-        <!-- THE REGISTRATION FORM -->
-        <div id="form-card" class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
-          
-          <div class="space-y-2 text-center">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 mx-auto flex items-center justify-center text-2xl">
-              👩‍🏫
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]">
+        הפוך כל תלמיד ל-<br />
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          מאסטר בחשבון
+        </span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto">
+        מערכת אבחון חכמה, משחקי חקר ויזואליים ודשבורד מעקב בזמן אמת – שתוכננו במיוחד עבור מורים פרטיים שרוצים להשיג תוצאות מדהימות במינימום זמן.
+      </p>
+
+      <div class="flex justify-center gap-4 pt-2">
+        <a href="#step-3-register" class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/25">
+          הרשמה מהירה לאקסל ✍️
+        </a>
+        <a href="#step-4-guide" class="px-6 py-3 bg-slate-900/80 border border-slate-800 hover:border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition">
+          קרא את המדריך למורה 📖
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ── השלב השני: אלבום תמונות וגיפים של הממשק והמשחקים ── -->
+    <section class="space-y-8 scroll-mt-24">
+      <div class="text-center space-y-2">
+        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
+          שלב 2
+        </div>
+        <h2 class="text-3xl font-black text-slate-100">אלבום משחקים ודשבורד מעקב</h2>
+        <p class="text-sm text-slate-400 max-w-md mx-auto">צפה בצילומי מסך אמיתיים וסרטוני גיימפליי של ממשק המורה והתלמיד</p>
+      </div>
+
+      <!-- Category 1: Teacher Dashboard (3 GIFs) -->
+      <div class="space-y-4">
+        <h3 class="text-base font-bold text-slate-200 flex items-center gap-2 border-r-2 border-emerald-400 pr-3">
+          📊 ממשק הניהול של המורה (דשבורד מעקב)
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/40 transition cursor-pointer" onclick="openPhotoModal(0)">
+            <img src="דשבורד 1 .gif" class="w-full h-full object-cover" alt="דשבורד מורה" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">דשבורד מורה: מעקב התמדה ורמות</p>
             </div>
-            <h2 class="text-2xl font-black text-slate-100">הרשמה לגישת מורים</h2>
-            <p class="text-xs text-slate-400">
-              הזן פרטים לקבלת גישת ניסיון מלאה למערכת והנחיות הפעלה
-            </p>
+          </div>
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/40 transition cursor-pointer" onclick="openPhotoModal(1)">
+            <img src="דשבורד 2.gif" class="w-full h-full object-cover" alt="דשבורד מורה" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">דשבורד מורה: מפת שגיאות לתלמיד</p>
+            </div>
+          </div>
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/40 transition cursor-pointer" onclick="openPhotoModal(2)">
+            <img src="דשבורד 3.gif" class="w-full h-full object-cover" alt="דשבורד מורה" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">דשבורד מורה: מנהל משימות ופלייליסטים</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 2: Active Gameplay (3 selected game GIFs) -->
+      <div class="space-y-4 pt-4">
+        <h3 class="text-base font-bold text-slate-200 flex items-center gap-2 border-r-2 border-cyan-400 pr-3">
+          🎮 משחקי למידה וחקר ( gameplay )
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-cyan-500/40 transition cursor-pointer" onclick="openPhotoModal(3)">
+            <img src="כפל 1 .gif" class="w-full h-full object-cover" alt="כפל ויזואלי" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">אלוף הכפל: תרגול כפל מבוסס תפיסה מרחבית</p>
+            </div>
+          </div>
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-cyan-500/40 transition cursor-pointer" onclick="openPhotoModal(5)">
+            <img src="משוואות .gif" class="w-full h-full object-cover" alt="משוואות" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">Equations: פתרון משוואות בעזרת הזזת איברים חזותית</p>
+            </div>
+          </div>
+          <div class="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-cyan-500/40 transition cursor-pointer" onclick="openPhotoModal(6)">
+            <img src="צורות .gif" class="w-full h-full object-cover" alt="גאומטריה" />
+            <div class="absolute inset-0 bg-slate-950/60 flex items-end p-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+              <p class="text-xs font-bold text-slate-100">מהנדסי צורות: הבנת שטח והיקף בצורה מוחשית</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center pt-2">
+        <button onclick="openPhotoModal(0)" class="text-sm text-emerald-400 font-bold hover:underline flex items-center gap-1">
+          🔍 פתח אלבום מלא של המשחקים והדשבורד (14 פריטים) ←
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ── השלב השלישי: טופס הרשמה לאקסל ── -->
+    <section id="step-3-register" class="scroll-mt-24 max-w-xl mx-auto w-full">
+      <div class="text-center space-y-2 mb-6">
+        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
+          שלב 3
+        </div>
+        <h2 class="text-3xl font-black text-slate-100">הרשמה לגישת מורים</h2>
+        <p class="text-sm text-slate-400">הזן פרטים לקבלת גישת ניסיון מלאה למערכת והנחיות הפעלה</p>
+      </div>
+
+      <!-- THE REGISTRATION FORM -->
+      <div id="form-card" class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
+        <form id="pilot-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+          <div id="error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-slate-300 block">שם מלא *</label>
+            <input
+              id="f-name"
+              type="text"
+              placeholder="ישראל ישראלי"
+              required
+              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
+            />
           </div>
 
-          <form id="pilot-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-            <div id="error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-slate-300 block">מספר טלפון / נייד *</label>
+            <input
+              id="f-phone"
+              type="tel"
+              placeholder="050-0000000"
+              required
+              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
+            />
+          </div>
 
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-300 block">שם מלא *</label>
-              <input
-                id="f-name"
-                type="text"
-                placeholder="ישראל ישראלי"
-                required
-                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-              />
-            </div>
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-slate-300 block">כתובת דוא"ל</label>
+            <input
+              id="f-email"
+              type="email"
+              placeholder="teacher@example.com"
+              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
+            />
+          </div>
 
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-300 block">מספר טלפון / נייד *</label>
-              <input
-                id="f-phone"
-                type="tel"
-                placeholder="050-0000000"
-                required
-                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-              />
-            </div>
-
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-300 block">כתובת דוא"ל</label>
-              <input
-                id="f-email"
-                type="email"
-                placeholder="teacher@example.com"
-                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-              />
-            </div>
-
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-300 block">כמות תלמידים פעילה</label>
-              <select
-                id="f-count"
-                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:border-emerald-500 text-sm transition"
-              >
-                <option value="1-5 תלמידים">1-5 תלמידים (מורה פרטי)</option>
-                <option value="6-15 תלמידים">6-15 תלמידים (קבוצות קטנות)</option>
-                <option value="16-30 תלמידים">16-30 תלמידים (כיתה)</option>
-                <option value="30+ תלמידים">מעל 30 תלמידים (מרכז למידה)</option>
-              </select>
-            </div>
-
-            <button
-              id="submit-btn"
-              type="submit"
-              class="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-base shadow-lg shadow-emerald-500/25 transition active:scale-[0.98] pulse-glow flex items-center justify-center gap-2"
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-slate-300 block">כמות תלמידים פעילה</label>
+            <select
+              id="f-count"
+              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:border-emerald-500 text-sm transition"
             >
-              <span>קבלת גישת מורה עכשיו 🚀</span>
-            </button>
-
-            <p class="text-[11px] text-center text-slate-500">
-              🔒 הפרטים נשמרים ישירות בגיליון אקסל מורים מאובטח.
-            </p>
-          </form>
-
-        </div>
-
-        <!-- SUCCESS SCREEN & DETAILED TEACHER ONBOARDING GUIDE -->
-        <div id="instructions-card" class="hidden relative bg-slate-900/95 border-2 border-emerald-500 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-6">
-          
-          <!-- Success Alert Header -->
-          <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-center space-y-2">
-            <div class="w-12 h-12 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-xl">
-              ✅
-            </div>
-            <h3 class="text-lg font-black text-emerald-300">ההרשמה בוצעה בהצלחה!</h3>
-            <p class="text-xs text-slate-300">
-              נרשמת בהצלחה באקסל המורים. להלן הוראות ההפעלה והגישה שלך:
-            </p>
+              <option value="1-5 תלמידים">1-5 תלמידים (מורה פרטי)</option>
+              <option value="6-15 תלמידים">6-15 תלמידים (קבוצות קטנות)</option>
+              <option value="16-30 תלמידים">16-30 תלמידים (כיתה)</option>
+              <option value="30+ תלמידים">מעל 30 תלמידים (מרכז למידה)</option>
+            </select>
           </div>
 
-          <!-- Onboarding Guide Steps (Scrollable Container) -->
-          <div class="space-y-5 max-h-[420px] overflow-y-auto pr-1.5 custom-scrollbar text-right">
-            
-            <div class="border-b border-slate-800 pb-3">
-              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
-                <span>🔑</span>
-                <span>שלב 1: כניסה למערכת המורים</span>
-              </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                היכנס לדשבורד המורה הראשי בכתובת:
-                <a href="/teacher" target="_blank" class="text-cyan-400 hover:underline font-bold block mt-1">mathapp.vercel.app/teacher</a>
-                השתמש באימייל שנרשמת איתו כדי להתחבר ללוח הבקרה שלך.
-              </p>
-            </div>
-
-            <div class="border-b border-slate-800 pb-3">
-              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
-                <span>🏫</span>
-                <span>שלב 2: יצירת כיתה ושיוך תלמידים</span>
-              </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                בתוך דשבורד המורה, לחץ על **"צור כיתה חדשה"**. המערכת תפיק קוד כיתה ייחודי. 
-                תן לתלמידים/להורים את קוד הכיתה כדי שיזינו אותו בממשק הילד, או צור עבורם קודי כניסה מהירים (Tokens) ישירות מהלוח.
-              </p>
-            </div>
-
-            <div class="border-b border-slate-800 pb-3">
-              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
-                <span>📋</span>
-                <span>שלב 3: הקצאת משימות למידה</span>
-              </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                באפשרותך ללחוץ על **"נהל משימות"** ולהקצות שלבים ספציפיים לתלמיד או לכיתה שלמה (למשל: תרגול שברים ברמה 4). התלמיד יראה את המשימה מודגשת בראש המשחק שלו.
-              </p>
-            </div>
-
-            <div>
-              <h4 class="text-sm font-black text-emerald-400 flex items-center gap-1.5 mb-1">
-                <span>📈</span>
-                <span>שלב 4: מעקב וזיהוי קשיים (טלמטריה)</span>
-              </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                לוח הבקרה ינתח עבורך אוטומטית מתי התלמיד מנחש, מתי הוא מתוסכל ומתי הוא פותר בצורה רציפה. תוכל לייצא את כל הנתונים לקובץ Excel מרוכז בלחיצה אחת!
-              </p>
-            </div>
-
-          </div>
-
-          <!-- Action Button to Teacher Dashboard -->
-          <a
-            href="/teacher"
-            target="_blank"
-            class="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-center text-sm block shadow-lg shadow-emerald-500/20 transition active:scale-[0.98]"
+          <button
+            id="submit-btn"
+            type="submit"
+            class="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-base shadow-lg shadow-emerald-500/25 transition active:scale-[0.98] pulse-glow flex items-center justify-center gap-2"
           >
-            כניסה לדשבורד מורה עכשיו 🚀
+            <span>קבלת גישת מורה עכשיו 🚀</span>
+          </button>
+
+          <p class="text-[11px] text-center text-slate-500">
+            🔒 הפרטים נשמרים ישירות בגיליון אקסל מורים מאובטח.
+          </p>
+        </form>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div id="success-screen" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-4">
+        <div class="w-14 h-14 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-2xl">
+          ✅
+        </div>
+        <h3 class="text-xl font-bold text-emerald-300">ההרשמה התקבלה בהצלחה!</h3>
+        <p class="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+          הנתונים נשמרו בהצלחה בגיליון האקסל. מומלץ לקרוא כעת את המדריך והוראות ההפעלה המופיעים בשלב הבא של העמוד.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ── השלב הרביעי: מדריך והוראות הפעלה למורים ── -->
+    <section id="step-4-guide" class="scroll-mt-24 space-y-8">
+      <div class="text-center space-y-2">
+        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
+          שלב 4
+        </div>
+        <h2 class="text-3xl font-black text-slate-100">מדריך והוראות הפעלה למורה</h2>
+        <p class="text-sm text-slate-400">הנחיות עבודה מפורטות ליישום המערכת עם תלמידים</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-8 text-right">
+        
+        <!-- Step 1 in Onboarding -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
+            1
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">גישה לדשבורד המורה</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              היכנס לדשבורד המורה הראשי בכתובת:
+              <a href="/teacher" target="_blank" class="text-cyan-400 hover:underline font-bold">mathapp.vercel.app/teacher</a>. 
+              השתמש באימייל שרשמת בטופס שלב 3 כדי להתחבר ללוח הבקרה האישי שלך.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 in Onboarding -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
+            2
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">הקמת כיתה ושיוך תלמידים</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              בתוך לוח הבקרה, לחץ על **"צור כיתה חדשה"** (למשל: "כיתת קיץ - מורה פרטי"). המערכת תפיק קוד כיתה ייחודי. תן להורים או לתלמידים את הקוד להזנה במכשיר שלהם, או צור עבורם משתמשים ישירים מתוך הממשק.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 in Onboarding -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
+            3
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">מנהל משימות (Assignments)</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              הכוון את התלמידים עם משימות ממוקדות: תוכל להקצות שלבים ספציפיים לתלמיד בודד או לכיתה שלמה (למשל: רמה 4 ב-Equations). התלמיד יראה את המשימה מודגשת בראש המשחק שלו.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 in Onboarding -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
+            4
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">ניתוח נתוני טלמטריה וייצוא</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              לוח המעקב מזהה בזמן אמת מדדי דיוק, אחוזי הצלחה, זמני תרגול ומתי תלמיד מתקשה. תוכל לייצא את כל נתוני ההתקדמות לקובץ Excel מרוכז בלחיצת כפתור אחת.
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex justify-center">
+          <a href="/teacher" target="_blank" class="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-2xl shadow-lg transition flex items-center gap-2">
+            <span>כניסה ישירה לדשבורד המורה 🚀</span>
           </a>
-
         </div>
 
-      </div>
-
-    </div>
-
-    <!-- 3 Key Features -->
-    <section class="py-12 border-t border-slate-800/80 space-y-8">
-      <div class="text-center space-y-2 max-w-xl mx-auto">
-        <h2 class="text-2xl font-black text-slate-100">למה מורים פרטיים בוחרים בחשבונאוטיקה?</h2>
-        <p class="text-xs text-slate-400">שילוב ייחודי בין אבחון פדגוגי עמוק לבין משחקיות שמושכת תלמידים לתרגל</p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-3">
-          <div class="text-3xl">🎯</div>
-          <h3 class="text-lg font-bold text-slate-100">1. אבחון קשיים בזמן אמת</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            המערכת מזהה ניחושים מהירים, תסכול או תפיסות מוטעות עוד לפני שהתלמיד מגיע אליך לשיעור.
-          </p>
-        </div>
-
-        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-3">
-          <div class="text-3xl">🎮</div>
-          <h3 class="text-lg font-bold text-slate-100">2. משחקי חקר ויזואליים</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            מעל 10 משחקי עומק (שברים, אחוזים, מאזניים, גאומטריה ומשוואות) המפתחים ראייה מתמטית עמוקה.
-          </p>
-        </div>
-
-        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-3">
-          <div class="text-3xl">📈</div>
-          <h3 class="text-lg font-bold text-slate-100">3. דוח הורים מרשים</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            הפקת נתונים וגרפים בלחיצת כפתור שמראים להורים את השיפור המדויק באחוזי ההצלחה ובזמני התרגול.
-          </p>
-        </div>
       </div>
     </section>
 
@@ -359,7 +339,7 @@
     
     <div class="max-w-4xl w-full flex flex-col items-center gap-4">
       <div class="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
-        <img id="modal-image" src="כפל 1 .gif" class="w-full h-full object-contain" />
+        <img id="modal-image" src="דשבורד 1 .gif" class="w-full h-full object-contain" />
         
         <!-- Navigation Buttons -->
         <button onclick="prevPhoto()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white flex items-center justify-center font-bold transition">&larr;</button>
@@ -370,7 +350,7 @@
       <p id="modal-caption" class="text-sm font-bold text-emerald-400 text-center"></p>
       
       <!-- Thumbnail Indicator dots -->
-      <div class="flex gap-2" id="modal-dots"></div>
+      <div class="flex gap-2 flex-wrap justify-center px-6" id="modal-dots"></div>
     </div>
   </div>
 
@@ -424,6 +404,9 @@
 
     // ── Photo Album & GIFs Carousel Data & Logic ────────────────────────────────
     const albumData = [
+      { src: 'דשבורד 1 .gif', label: 'ממשק מורה: מעקב פעילות כיתתי שבועי, כוכבים וזמן תרגול' },
+      { src: 'דשבורד 2.gif', label: 'ממשק מורה: ניתוח מדויק של שגיאות, אחוזי דיוק ואבחון קשיים לתלמיד' },
+      { src: 'דשבורד 3.gif', label: 'ממשק מורה: מנהל משימות ליצירה ושיוך פלייליסטים של שלבי משחק' },
       { src: 'כפל 1 .gif', label: 'גיימפליי: תרגול כפל ויזואלי המשלב הבנה ומשחק מאתגר' },
       { src: 'כפל 2.gif', label: 'גיימפליי: משחק לוח הכפל לחיזוק שליטה מהירה ויעילה' },
       { src: 'משוואות .gif', label: 'גיימפליי: פתרון משוואות אלגבריות עם משתנים בדרך חזותית' },
@@ -469,7 +452,7 @@
       dotsContainer.innerHTML = '';
       albumData.forEach((item, index) => {
         const dot = document.createElement('button');
-        dot.className = `w-2 h-2 rounded-full transition ${index === currentPhotoIdx ? 'bg-emerald-400 w-4' : 'bg-slate-700'}`;
+        dot.className = `w-2 h-2 rounded-full transition m-1 ${index === currentPhotoIdx ? 'bg-emerald-400 w-4' : 'bg-slate-700'}`;
         dot.onclick = () => openPhotoModal(index);
         dotsContainer.appendChild(dot);
       });
@@ -512,10 +495,10 @@
         body: JSON.stringify({ name: name, phone: phone, email: email, studentsCount: studentsCount })
       })
       .then(() => {
-        // Transition: Hide form and reveal onboarding guide!
+        // Transition: Hide form and reveal success screen
         document.getElementById('form-card').classList.add('hidden');
-        document.getElementById('instructions-card').classList.remove('hidden');
-        document.getElementById('register-section').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('success-screen').classList.remove('hidden');
+        document.getElementById('step-3-register').scrollIntoView({ behavior: 'smooth' });
       })
       .catch((error) => {
         console.error('Error submitting form:', error);
