@@ -299,7 +299,7 @@
     resizeCanvas();
     drawStars();
 
-    // ── Dual Ingestion (Supabase Database + Google Apps Script Excel) ───────────
+    // ── Ingestion to Google Apps Script (Google Sheet Excel) ───────────────────
     function handleFormSubmit(e) {
       e.preventDefault();
       
@@ -316,39 +316,25 @@
       btn.disabled = true;
       btn.innerHTML = `<span>שולח נתונים... ⏳</span>`;
 
-      // 1. Supabase REST Ingestion (100% Reliable, Direct to Database & Admin Excel)
-      const SUPABASE_URL = "https://dcriwvfeajorkauzytmp.supabase.co/rest/v1/teacher_leads";
-      const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjcml3dmZlYWpvcmthdXp5dG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyOTAyODEsImV4cCI6MjA5MTg2NjI4MX0.6-KFCXPme2VFtXI1s78G1mdnnLS-MdFwmRjNyKhXds8";
-
-      const dbPromise = fetch(SUPABASE_URL, {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({
-          full_name: name,
-          email: email || null,
-          notes: 'טלפון: ' + phone + ' | כמות: ' + studentsCount,
-          handled: false
-        })
-      });
-
-      // 2. Google Apps Script Web App Ingestion (Google Sheet Integration)
+      // Google Apps Script Web App Ingestion (Google Sheet Integration)
       const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbxwNr33WvZnQDjT4gjpDN9WbFQJ4AWTSrBTxtj5xSkzgq6HJNrQ-yMLH7l1Ic9Mlf7q/exec";
 
-      const gsPromise = fetch(GOOGLE_APP_URL, {
+      fetch(GOOGLE_APP_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, phone: phone, email: email, studentsCount: studentsCount })
-      }).catch(err => console.warn('GS fetch warning:', err));
-
-      Promise.allSettled([dbPromise, gsPromise]).then(() => {
+      })
+      .then(() => {
         document.getElementById('pilot-form').classList.add('hidden');
         document.getElementById('success-screen').classList.remove('hidden');
+      })
+      .catch((error) => {
+        console.error('Error submitting form:', error);
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHTML;
+        errorDiv.textContent = "שגיאת תקשורת בקבלת הטופס, נסה שנית.";
+        errorDiv.classList.remove('hidden');
       });
     }
   </script>
