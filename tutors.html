@@ -121,40 +121,40 @@
           </div>
         </div>
 
-        <!-- ALBUM / CAROUSEL OF SELECTED GAMES -->
+        <!-- ALBUM / CAROUSEL OF SELECTED GAMES (WITH GIFS) -->
         <div class="pt-6 border-t border-slate-800/80 space-y-3">
-          <h3 class="text-sm font-black text-emerald-400 tracking-wide">🎮 הצצה למשחקים נבחרים מתוך המערכת:</h3>
+          <h3 class="text-sm font-black text-emerald-400 tracking-wide">🎬 סרטוני גיימפליי ומשחקים פעילים במערכת:</h3>
           
-          <!-- Image Album Grid -->
+          <!-- Image Album Grid (showing GIFs as moving previews) -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(0)">
-              <img src="111.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="מעבדת שברים" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">FractionLab - מעבדת שברים</span>
+              <img src="כפל 1 .gif" class="w-full h-full object-cover" alt="משחק כפל" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">גיימפליי: תרגול כפל חזותי</span>
               </div>
             </div>
             <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(1)">
-              <img src="112.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="משחק המאזניים" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">Balance - מאזניים אלגבריים</span>
+              <img src="כפל 2.gif" class="w-full h-full object-cover" alt="משחק לוח הכפל" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">גיימפליי: לוח כפל מרחבי</span>
               </div>
             </div>
             <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(2)">
-              <img src="113.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="משחק המכלים" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">Tank - מכלים ועשרוניים</span>
+              <img src="משוואות .gif" class="w-full h-full object-cover" alt="משוואות ויזואליות" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">גיימפליי: פתרון משוואות</span>
               </div>
             </div>
             <div class="group relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950/80 hover:border-emerald-500/50 transition cursor-pointer" onclick="openPhotoModal(3)">
-              <img src="114.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="פתרון משוואות" />
-              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-0 group-hover:opacity-100 transition duration-200">
-                <span class="text-[10px] font-bold text-slate-100">Equations - משוואות חזותיות</span>
+              <img src="צורות .gif" class="w-full h-full object-cover" alt="צורות וגאומטריה" />
+              <div class="absolute inset-0 bg-slate-950/60 flex items-end p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-200">
+                <span class="text-[10px] font-bold text-slate-100">גיימפליי: גאומטריה ושטח</span>
               </div>
             </div>
           </div>
           <div class="flex justify-start">
             <button onclick="openPhotoModal(0)" class="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1">
-              🔍 פתח אלבום תמונות מלא של המשחקים (7 תמונות) ←
+              🔍 פתח אלבום מלא של המשחקים והסרטונים (11 פריטים) ←
             </button>
           </div>
         </div>
@@ -359,7 +359,7 @@
     
     <div class="max-w-4xl w-full flex flex-col items-center gap-4">
       <div class="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
-        <img id="modal-image" src="111.jpeg" class="w-full h-full object-contain" />
+        <img id="modal-image" src="כפל 1 .gif" class="w-full h-full object-contain" />
         
         <!-- Navigation Buttons -->
         <button onclick="prevPhoto()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white flex items-center justify-center font-bold transition">&larr;</button>
@@ -422,8 +422,12 @@
     resizeCanvas();
     drawStars();
 
-    // ── Photo Album Carousel Data & Logic ──────────────────────────────────────
+    // ── Photo Album & GIFs Carousel Data & Logic ────────────────────────────────
     const albumData = [
+      { src: 'כפל 1 .gif', label: 'גיימפליי: תרגול כפל ויזואלי המשלב הבנה ומשחק מאתגר' },
+      { src: 'כפל 2.gif', label: 'גיימפליי: משחק לוח הכפל לחיזוק שליטה מהירה ויעילה' },
+      { src: 'משוואות .gif', label: 'גיימפליי: פתרון משוואות אלגבריות עם משתנים בדרך חזותית' },
+      { src: 'צורות .gif', label: 'גיימפליי: מהנדסי צורות - הבנת שטח, היקף וגאומטריה בצורה מוחשית' },
       { src: '111.jpeg', label: 'FractionLab - מעבדת שברים אינטראקטיבית לחקר מושג השבר' },
       { src: '112.jpeg', label: 'Balance - מאזניים אלגבריים ואיזון משוואות בצורה מוחשית' },
       { src: '113.jpeg', label: 'Tank - למידת שברים עשרוניים ואחוזים באמצעות מילוי מכלים' },
