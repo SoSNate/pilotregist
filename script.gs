@@ -35,7 +35,7 @@ function doPost(e) {
     
     var name = data.name || data.fullName || '';
     var email = data.email || '';
-    var phone = data.phone ? '\'' + String(data.phone).replace(/[' font-bold]/g, '') : '';
+    var phone = data.phone ? '\'' + String(data.phone).replace(/['\s-]/g, '') : '';
     var studentsCount = data.studentsCount || data.studentCount || '';
     var about = data.about || data.notes || '';
 
