@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <a href="#step-3-register" class="px-4 py-2 text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl transition">
+      <a href="#role-picker" class="px-4 py-2 text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl transition">
         הצטרפות לפיילוט 🚀
       </a>
     </div>
@@ -87,10 +87,10 @@
       </p>
 
       <div class="flex justify-center gap-4 pt-2">
-        <a href="#step-3-register" class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/25">
+        <a href="#role-picker" class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/25">
           הצטרפות לפיילוט ✍️
         </a>
-        <a href="#step-4-guide" class="px-6 py-3 bg-slate-900/80 border border-slate-800 hover:border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition">
+        <a href="#role-picker" class="px-6 py-3 bg-slate-900/80 border border-slate-800 hover:border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition">
           איך זה עובד 📖
         </a>
       </div>
@@ -135,9 +135,6 @@
     <!-- ── השלב השני: אלבום תמונות וגיפים של הממשק והמשחקים ── -->
     <section class="space-y-8 scroll-mt-24">
       <div class="text-center space-y-2">
-        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
-          שלב 1
-        </div>
         <h2 class="text-3xl font-black text-slate-100">רואים את זה בעיניים</h2>
         <p class="text-sm text-slate-400 max-w-md mx-auto">מסכים אמיתיים מהדשבורד ומהמשחקים</p>
       </div>
@@ -204,192 +201,237 @@
     </section>
 
 
-    <!-- ── השלב השלישי: טופס הרשמה לאקסל ── -->
-    <section id="step-3-register" class="scroll-mt-24 max-w-xl mx-auto w-full">
-      <div class="text-center space-y-2 mb-6">
-        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
-          שלב 2
-        </div>
-        <h2 class="text-3xl font-black text-slate-100">הצטרפות לפיילוט</h2>
-        <p class="text-sm text-slate-400">משאירים פרטים ומצטרפים למורים הראשונים. פרטי ההתחברות יסופקו בהמשך.</p>
+    <!-- ── בורר תפקיד: מורה או הורה ── -->
+    <section id="role-picker" class="scroll-mt-24 space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl font-black text-slate-100">מי נכנס עכשיו?</h2>
+        <p class="text-sm text-slate-400">בחרו כדי להמשיך להסבר ולהרשמה המתאימים לכם</p>
       </div>
 
-      <!-- THE REGISTRATION FORM -->
-      <div id="form-card" class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
-        <form id="pilot-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-          <div id="error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
+      <div class="flex items-stretch justify-center gap-4 max-w-2xl mx-auto h-36 sm:h-40">
+        <button onclick="selectRole('teacher')" class="group relative flex-[1.4]">
+          <svg class="absolute inset-0 w-full h-full text-slate-700 group-hover:text-emerald-400 transition pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <polygon points="0,0 100,0 88,100 0,100" fill="rgba(15,23,42,0.85)" class="group-hover:fill-emerald-500/10 transition" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
+          </svg>
+          <span class="relative flex flex-col items-center justify-center gap-2 h-full pb-3">
+            <span class="text-4xl">👩‍🏫</span>
+            <span class="text-xl font-black text-slate-100 group-hover:text-emerald-300 transition">מורה</span>
+            <span class="text-xs text-slate-400">מורה פרטי או בית ספר</span>
+          </span>
+        </button>
 
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-300 block">שם מלא *</label>
-            <input
-              id="f-name"
-              type="text"
-              placeholder="ישראל ישראלי"
-              required
-              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-            />
-          </div>
+        <button onclick="selectRole('parent')" class="group relative flex-1">
+          <svg class="absolute inset-0 w-full h-full text-slate-700 group-hover:text-cyan-400 transition pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <polygon points="12,0 100,0 100,100 0,100" fill="rgba(15,23,42,0.85)" class="group-hover:fill-cyan-500/10 transition" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
+          </svg>
+          <span class="relative flex flex-col items-center justify-center gap-2 h-full pb-3">
+            <span class="text-3xl">👨‍👩‍👧</span>
+            <span class="text-lg font-black text-slate-100 group-hover:text-cyan-300 transition">הורה</span>
+            <span class="text-[11px] text-slate-400">לתרגול עם הילד בבית</span>
+          </span>
+        </button>
+      </div>
+    </section>
 
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-300 block">מספר טלפון / נייד * <span class="text-emerald-400 font-normal">(שדה חובה)</span></label>
-            <input
-              id="f-phone"
-              type="tel"
-              inputmode="tel"
-              placeholder="050-0000000"
-              required
-              minlength="9"
-              pattern="^0(5\d|[2-489]|7\d)[-\s]?\d{7}$"
-              title="יש להזין מספר טלפון ישראלי תקין, לדוגמה: 050-0000000"
-              oninvalid="this.setCustomValidity('חובה להזין מספר טלפון תקין ליצירת קשר')"
-              oninput="this.setCustomValidity('')"
-              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-            />
-            <p class="text-[11px] text-slate-500">הטלפון משמש לזיהוי ההרשמה לפיילוט.</p>
-          </div>
 
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-300 block">כתובת דוא"ל</label>
-            <input
-              id="f-email"
-              type="email"
-              placeholder="teacher@example.com"
-              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition"
-            />
-          </div>
-
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-300 block">כמה תלמידים פרטיים יש לך כרגע?</label>
-            <select
-              id="f-count"
-              class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:border-emerald-500 text-sm transition"
-            >
-              <option value="1-3 תלמידים">1-3 תלמידים</option>
-              <option value="4-8 תלמידים">4-8 תלמידים</option>
-              <option value="9-15 תלמידים">9-15 תלמידים</option>
-              <option value="15+ תלמידים">מעל 15 תלמידים</option>
-            </select>
-          </div>
-
-          <button
-            id="submit-btn"
-            type="submit"
-            class="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-base shadow-lg shadow-emerald-500/25 transition active:scale-[0.98] pulse-glow flex items-center justify-center gap-2"
-          >
-            <span>שלח פרטים והרשם 🚀</span>
-          </button>
-
-          <p class="text-[11px] text-center text-slate-500">
-            🔒 הפרטים נשמרים באופן מאובטח ומשמשים ליצירת קשר בלבד.
-          </p>
-  
-        </form>
+    <!-- ── מסלול הורה: הסבר + טופס ── -->
+    <section id="parent-track" class="hidden scroll-mt-24 space-y-8">
+      <div class="text-center space-y-2">
+        <button onclick="backToRolePicker()" class="text-xs text-slate-500 hover:text-slate-300 transition">← חזרה לבחירה</button>
+        <h2 class="text-3xl font-black text-slate-100">חשבונאוטיקה להורים</h2>
+        <p class="text-sm text-slate-400 max-w-md mx-auto">תמונת מצב אמיתית על יכולות הילד, ותרגול משותף שהוא בכיף ולא ויכוח</p>
       </div>
 
-      <!-- SUCCESS SCREEN -->
-      <div id="success-screen" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-4">
-        <div class="w-14 h-14 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-2xl">
-          ✅
-        </div>
-        <h3 class="text-xl font-bold text-emerald-300">ההרשמה התקבלה בהצלחה!</h3>
-        <p class="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-          אתה בפנים. פרטי ההתחברות לדשבורד יסופקו בהמשך. בינתיים אפשר לראות למטה איך זה עובד.
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 text-right max-w-xl mx-auto">
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-cyan-300 font-bold">🧠 יודעים בדיוק איפה הוא עומד</span> – במקום לנחש אם "הוא מבין חשבון", אתם רואים בדשבורד אישי אילו נושאים חזקים ואיפה יש פער.
+        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-cyan-300 font-bold">🎮 תרגול שהוא רוצה לעשות</span> – משחקי חקר ויזואליים במקום דפי עבודה, שאפשר לשבת איתם יחד בסלון או להשאיר לו לתרגל לבד.
+        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-cyan-300 font-bold">📱 בלי התקנה, מכל מכשיר</span> – נכנסים מהדפדפן בטלפון, בטאבלט או במחשב, ומתחילים תוך דקה.
         </p>
       </div>
+
+      <div class="max-w-xl mx-auto w-full space-y-6">
+        <div id="parent-form-card" class="relative bg-slate-900/90 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
+          <form id="parent-form" onsubmit="handleFormSubmit(event, 'parent')" class="space-y-4">
+            <div id="parent-error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">שם מלא *</label>
+              <input id="parent-f-name" type="text" placeholder="שם ההורה" required
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">מספר טלפון / נייד * <span class="text-cyan-400 font-normal">(שדה חובה)</span></label>
+              <input id="parent-f-phone" type="tel" inputmode="tel" placeholder="050-0000000" required
+                minlength="9" pattern="^0(5\d|[2-4]\d|[7-9]\d)(-|\s)?\d{7}$"
+                title="יש להזין מספר טלפון ישראלי תקין, לדוגמה: 050-0000000"
+                oninvalid="this.setCustomValidity('חובה להזין מספר טלפון תקין ליצירת קשר')"
+                oninput="this.setCustomValidity('')"
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">כתובת דוא"ל *</label>
+              <input id="parent-f-email" type="email" placeholder="parent@example.com" required
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button type="submit" data-mode="info"
+                class="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition active:scale-[0.98]">
+                רוצה לשמוע עוד פרטים
+              </button>
+              <button type="submit" data-mode="enter"
+                class="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-cyan-500/25 transition active:scale-[0.98] pulse-glow">
+                כניסה ישירה לחשבונאוטיקה 🚀
+              </button>
+            </div>
+
+            <p class="text-[11px] text-center text-slate-500">
+              🔒 הפרטים נשמרים באופן מאובטח ומשמשים ליצירת קשר בלבד.
+            </p>
+          </form>
+        </div>
+
+        <!-- SUCCESS: info only -->
+        <div id="parent-success-info" class="hidden bg-cyan-500/10 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-4">
+          <div class="w-14 h-14 bg-cyan-500/20 border border-cyan-500/50 rounded-full mx-auto flex items-center justify-center text-2xl">✅</div>
+          <h3 class="text-xl font-bold text-cyan-300">קיבלנו את הפרטים!</h3>
+          <p class="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">נחזור אליכם בקרוב עם כל המידע. אפשר גם לגלוש למדריך הקצר ולהיכנס למערכת כבר עכשיו.</p>
+          <button onclick="goToGuide()" class="mt-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black rounded-xl text-sm transition">למדריך הקצר ←</button>
+        </div>
+      </div>
     </section>
 
 
-    <!-- ── השלב הרביעי: מדריך והוראות הפעלה למורים ── -->
-    <section id="step-4-guide" class="scroll-mt-24 space-y-8">
+    <!-- ── מסלול מורה: הסבר + טופס ── -->
+    <section id="teacher-track" class="hidden scroll-mt-24 space-y-8">
       <div class="text-center space-y-2">
-        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
-          שלב 3
-        </div>
-        <h2 class="text-3xl font-black text-slate-100">איך זה עובד</h2>
-        <p class="text-sm text-slate-400">שלושה צעדים, בלי התקנות ובלי בירוקרטיה</p>
+        <button onclick="backToRolePicker()" class="text-xs text-slate-500 hover:text-slate-300 transition">← חזרה לבחירה</button>
+        <h2 class="text-3xl font-black text-slate-100">חשבונאוטיקה למורים</h2>
+        <p class="text-sm text-slate-400 max-w-md mx-auto">כלי תרגול ומעקב שממשיך לעבוד גם כשהתלמיד לא מולכם</p>
       </div>
 
-      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-8 text-right">
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 text-right max-w-xl mx-auto">
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-emerald-300 font-bold">🎯 תרגול ממוקד בין המפגשים</span> – משגרים לתלמיד בדיוק את הנושא שתרגלתם, והוא ממשיך לבד עד הפעם הבאה.
+        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-emerald-300 font-bold">🧭 אבחון אמיתי, לא ניחוש</span> – רואים בדיוק איזה מושג חסר לתלמיד, במקום רק "הוא טעה".
+        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          <span class="text-emerald-300 font-bold">📤 דוח שמדבר להורים</span> – ייצוא התקדמות מסודר בלחיצה, לכל תלמיד או לכל הכיתה.
+        </p>
+      </div>
 
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
-            1
-          </div>
-          <div class="space-y-1">
-            <h3 class="text-lg font-bold text-slate-100">נכנסים לדשבורד המורה</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              ישר מהדפדפן, בנייד או במחשב, ללא התקנה. פרטי ההתחברות יסופקו בהמשך.
+      <div class="max-w-xl mx-auto w-full space-y-6">
+        <div id="teacher-form-card" class="relative bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
+          <form id="teacher-form" onsubmit="handleFormSubmit(event, 'teacher')" class="space-y-4">
+            <div id="teacher-error-message" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold"></div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">שם מלא *</label>
+              <input id="teacher-f-name" type="text" placeholder="ישראל ישראלי" required
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">מספר טלפון / נייד * <span class="text-emerald-400 font-normal">(שדה חובה)</span></label>
+              <input id="teacher-f-phone" type="tel" inputmode="tel" placeholder="050-0000000" required
+                minlength="9" pattern="^0(5\d|[2-4]\d|[7-9]\d)(-|\s)?\d{7}$"
+                title="יש להזין מספר טלפון ישראלי תקין, לדוגמה: 050-0000000"
+                oninvalid="this.setCustomValidity('חובה להזין מספר טלפון תקין ליצירת קשר')"
+                oninput="this.setCustomValidity('')"
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">כתובת דוא"ל *</label>
+              <input id="teacher-f-email" type="email" placeholder="teacher@example.com" required
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 text-sm transition" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-300 block">כמה תלמידים יש לך כרגע?</label>
+              <select id="teacher-f-count"
+                class="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:border-emerald-500 text-sm transition">
+                <option value="1-3 תלמידים">1-3 תלמידים</option>
+                <option value="4-8 תלמידים">4-8 תלמידים</option>
+                <option value="9-15 תלמידים">9-15 תלמידים</option>
+                <option value="15+ תלמידים">מעל 15 תלמידים</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button type="submit" data-mode="info"
+                class="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition active:scale-[0.98]">
+                רוצה לשמוע עוד פרטים
+              </button>
+              <button type="submit" data-mode="enter"
+                class="w-full py-3 px-4 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-emerald-500/25 transition active:scale-[0.98] pulse-glow">
+                יצירת פרופיל מורה 🚀
+              </button>
+            </div>
+
+            <p class="text-[11px] text-center text-slate-500">
+              🔒 הפרטים נשמרים באופן מאובטח ומשמשים ליצירת קשר בלבד.
             </p>
-          </div>
+          </form>
         </div>
 
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
-            2
-          </div>
-          <div class="space-y-1">
-            <h3 class="text-lg font-bold text-slate-100">מחברים את התלמיד בשיעור</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              התלמיד מתחבר בעזרת המורה, בלי הרשמה ובלי אימות. פותחים איתו את המשחק פעם אחת – ומשם הוא חוזר אליו לבד.
-            </p>
-          </div>
+        <!-- SUCCESS: info only -->
+        <div id="teacher-success-info" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-4">
+          <div class="w-14 h-14 bg-emerald-500/20 border border-emerald-500/50 rounded-full mx-auto flex items-center justify-center text-2xl">✅</div>
+          <h3 class="text-xl font-bold text-emerald-300">קיבלנו את הפרטים!</h3>
+          <p class="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">נחזור אליכם בקרוב עם כל המידע. אפשר גם לגלוש למדריך הקצר ולהיכנס למערכת כבר עכשיו.</p>
+          <button onclick="goToGuide()" class="mt-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm transition">למדריך הקצר ←</button>
         </div>
-
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">
-            3
-          </div>
-          <div class="space-y-1">
-            <h3 class="text-lg font-bold text-slate-100">משגרים משימות ורואים הכול בזמן אמת</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              מרכיבים לתלמיד רצף תרגול ומשגרים מהנייד. מה שהוא עושה בבית מגיע אליכם תוך כדי – בלי לסנכרן כלום.
-            </p>
-          </div>
-        </div>
-
       </div>
     </section>
 
 
-    <!-- ── מה המורה מקבל בדשבורד ── -->
-    <section class="space-y-8 scroll-mt-24">
+    <!-- ── מדריך קצר משותף להורים ולמורים ── -->
+    <section id="quick-guide" class="hidden scroll-mt-24 space-y-8">
       <div class="text-center space-y-2">
-        <div class="inline-block text-xs font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full">
-          שלב 4
-        </div>
-        <h2 class="text-3xl font-black text-slate-100">מה מקבלים</h2>
-        <p class="text-sm text-slate-400 max-w-lg mx-auto">הכול פתוח לכל מורה בפיילוט</p>
+        <h2 class="text-3xl font-black text-slate-100">לפני שנכנסים – 3 דברים</h2>
+        <p class="text-sm text-slate-400">שלושים שניות קריאה, ואתם בפנים</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-4 text-right">
-          <h3 class="text-lg font-black text-emerald-300">👩‍🏫 המורה</h3>
-          <div class="space-y-3">
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">📔 כרטיס לכל תלמיד</span> – היסטוריית תרגול, נושאים והתקדמות במקום אחד.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">🧭 אבחון קשיים</span> – לא רק "טעה", אלא איזה מושג בדיוק חסר.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">🎯 שיגור משימות</span> – משימה ממוקדת לתלמיד או לקבוצה, ישר מהנייד.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">📤 דוח להורים</span> – דוח התקדמות וייצוא לאקסל בלחיצה.</p>
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 text-right max-w-xl mx-auto">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">1</div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">בלי הרשמה לילד</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">הילד נכנס למשחק בעזרתכם, בלי סיסמה ובלי אימות בצד שלו.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">2</div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">עובד מכל מכשיר</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">טלפון, טאבלט או מחשב – ישר מהדפדפן, בלי להתקין כלום.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0">3</div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100">כדאי לשחק ביחד פעם ראשונה</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">כמה דקות ביחד בפעם הראשונה, ומשם הוא כבר יודע לחזור לבד.</p>
           </div>
         </div>
 
-        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-4 text-right">
-          <h3 class="text-lg font-black text-cyan-300">🎒 התלמיד</h3>
-          <div class="space-y-3">
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">🎮 משחקים במקום דפי עבודה</span> – כל מושג נלמד דרך משחק ויזואלי.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">⭐ מוטיבציה מובנית</span> – כוכבים ורצפים שמחזירים אותו לתרגל.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">🧩 רמה שמתכווננת אליו</span> – לא משעמם מדי ולא מתסכל מדי.</p>
-            <p class="text-xs text-slate-400 leading-relaxed"><span class="text-slate-100 font-bold">📱 מכל מכשיר</span> – טלפון, טאבלט או מחשב, בלי התקנה.</p>
-          </div>
+        <div class="pt-4 border-t border-slate-800 flex justify-center">
+          <a href="https://aritmetica.nt-school.app/play/b8f76a3c091c1aa663bc1a9c" target="_blank" class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black rounded-2xl shadow-lg transition flex items-center gap-2">
+            <span>כניסה לחשבונאוטיקה 🚀</span>
+          </a>
         </div>
-      </div>
-
-      <div class="flex justify-center">
-        <a href="#step-3-register" class="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-2xl shadow-lg transition flex items-center gap-2">
-          <span>הצטרפות חינם לפיילוט ✍️</span>
-        </a>
       </div>
     </section>
-
   </main>
 
   <!-- Photo Modal Overlay -->
@@ -527,57 +569,106 @@
       if (e.target === document.getElementById('photo-modal')) closePhotoModal();
     });
 
+    // ── Role Picker Navigation ──────────────────────────────────────────────────
+    const ENTER_APP_URL = "https://aritmetica.nt-school.app/play/b8f76a3c091c1aa663bc1a9c";
+
+    function hideAllTracks() {
+      ['role-picker', 'parent-track', 'teacher-track', 'quick-guide'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+    }
+
+    function selectRole(role) {
+      hideAllTracks();
+      document.getElementById(role === 'parent' ? 'parent-track' : 'teacher-track').classList.remove('hidden');
+      document.getElementById(role === 'parent' ? 'parent-track' : 'teacher-track').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function backToRolePicker() {
+      hideAllTracks();
+      document.getElementById('role-picker').classList.remove('hidden');
+      document.getElementById('role-picker').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function goToGuide() {
+      hideAllTracks();
+      document.getElementById('quick-guide').classList.remove('hidden');
+      document.getElementById('quick-guide').scrollIntoView({ behavior: 'smooth' });
+    }
+
     // ── Form Submission to Google Apps Script ──────────────────────────────────
-    function handleFormSubmit(e) {
+    function handleFormSubmit(e, role) {
       e.preventDefault();
-      
-      const errorDiv = document.getElementById('error-message');
+
+      const prefix = role === 'parent' ? 'parent' : 'teacher';
+      const mode = e.submitter ? e.submitter.dataset.mode : 'info'; // 'info' or 'enter'
+
+      const errorDiv = document.getElementById(`${prefix}-error-message`);
       errorDiv.classList.add('hidden');
 
-      const name = document.getElementById('f-name').value.trim();
-      const phone = document.getElementById('f-phone').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      const studentsCount = document.getElementById('f-count').value;
+      const name = document.getElementById(`${prefix}-f-name`).value.trim();
+      const phone = document.getElementById(`${prefix}-f-phone`).value.trim();
+      const email = document.getElementById(`${prefix}-f-email`).value.trim();
+      const countField = document.getElementById(`${prefix}-f-count`);
+      const studentsCount = countField ? countField.value : '';
 
-      // טלפון = שדה חובה. חוסם גם אם ולידציית הדפדפן נעקפה.
+      // טלפון ואימייל = שדות חובה. חוסם גם אם ולידציית הדפדפן נעקפה.
       const digits = phone.replace(/\D/g, '');
       if (!digits || digits.length < 9 || digits.length > 10 || digits[0] !== '0') {
         errorDiv.textContent = "חובה להזין מספר טלפון תקין ליצירת קשר (לדוגמה: 050-0000000).";
         errorDiv.classList.remove('hidden');
-        const phoneInput = document.getElementById('f-phone');
+        const phoneInput = document.getElementById(`${prefix}-f-phone`);
         phoneInput.classList.add('border-rose-500');
         phoneInput.focus();
         return;
       }
-      document.getElementById('f-phone').classList.remove('border-rose-500');
+      document.getElementById(`${prefix}-f-phone`).classList.remove('border-rose-500');
 
-      const btn = document.getElementById('submit-btn');
-      const originalBtnHTML = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = `<span>שולח נתונים... ⏳</span>`;
+      if (!email) {
+        errorDiv.textContent = "חובה להזין כתובת דוא\"ל ליצירת קשר.";
+        errorDiv.classList.remove('hidden');
+        document.getElementById(`${prefix}-f-email`).focus();
+        return;
+      }
+
+      const originalBtnHTML = e.submitter.innerHTML;
+      e.submitter.disabled = true;
+      e.submitter.innerHTML = `<span>שולח נתונים... ⏳</span>`;
 
       // Google Apps Script Web App URL
       const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbzrRFJIYBSiXXGhR_jwbTfeTlGVRhH1YMuV8IwPWmSz36Wtv9CI4ydPnD8_VWQB9L8s/exec";
 
-      fetch(GOOGLE_APP_URL, {
+      // Apps Script לפעמים נתקע ברשת הפניות ארוכה תחת no-cors ולא חוזר כלל.
+      // לא חוסמים את המשתמש בגלל זה: אחרי 5 שניות ממשיכים בכל מקרה.
+      const submitPromise = fetch(GOOGLE_APP_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, phone: phone, email: email, studentsCount: studentsCount })
-      })
+        body: JSON.stringify({ name: name, phone: phone, email: email, studentsCount: studentsCount, role: prefix, requestedMode: mode })
+      });
+      const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
+
+      Promise.race([submitPromise, timeoutPromise])
       .then(() => {
-        // Transition: Hide form and reveal success screen
-        document.getElementById('form-card').classList.add('hidden');
-        document.getElementById('success-screen').classList.remove('hidden');
-        document.getElementById('step-3-register').scrollIntoView({ behavior: 'smooth' });
+        if (mode === 'enter') {
+          window.open(ENTER_APP_URL, '_blank');
+          goToGuide();
+        } else {
+          document.getElementById('quick-guide').classList.add('hidden');
+          document.getElementById(`${prefix}-form-card`).classList.add('hidden');
+          document.getElementById(`${prefix}-success-info`).classList.remove('hidden');
+        }
       })
       .catch((error) => {
         console.error('Error submitting form:', error);
-        btn.disabled = false;
-        btn.innerHTML = originalBtnHTML;
+        e.submitter.disabled = false;
+        e.submitter.innerHTML = originalBtnHTML;
         errorDiv.textContent = "שגיאת תקשורת בקבלת הטופס, נסה שנית.";
         errorDiv.classList.remove('hidden');
       });
+
+      // מוודאים שריצת הרשת ממשיכה ברקע (לצורך רישום), גם אם כבר המשכנו את המשתמש.
+      submitPromise.catch(() => {});
     }
   </script>
 </body>
