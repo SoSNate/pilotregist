@@ -47,7 +47,7 @@ function initGravityGrid(canvasEl, options) {
   }
 
   function draw() {
-    ctx.fillStyle = '#05070B';
+    ctx.fillStyle = '#060A1A';
     ctx.fillRect(0, 0, w, h);
 
     const mass = massPos();
@@ -87,17 +87,21 @@ function initGravityGrid(canvasEl, options) {
       ctx.stroke();
     }
 
-    const grad = ctx.createRadialGradient(mass.x, mass.y, mass.r * 0.1, mass.x, mass.y, mass.r * 1.7);
-    grad.addColorStop(0, 'rgba(255,190,120,0.55)');
-    grad.addColorStop(0.55, 'rgba(255,150,80,0.18)');
-    grad.addColorStop(1, 'rgba(255,150,80,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.arc(mass.x, mass.y, mass.r * 1.7, 0, Math.PI * 2); ctx.fill();
+    // Accretion-disk glow: a thin bright ring around the event horizon,
+    // fading out — not a filled glowing sphere like a star.
+    const diskOuter = ctx.createRadialGradient(mass.x, mass.y, mass.r * 0.98, mass.x, mass.y, mass.r * 1.9);
+    diskOuter.addColorStop(0, 'rgba(255,210,150,0.9)');
+    diskOuter.addColorStop(0.18, 'rgba(255,180,110,0.35)');
+    diskOuter.addColorStop(0.5, 'rgba(180,140,255,0.12)');
+    diskOuter.addColorStop(1, 'rgba(180,140,255,0)');
+    ctx.fillStyle = diskOuter;
+    ctx.beginPath(); ctx.arc(mass.x, mass.y, mass.r * 1.9, 0, Math.PI * 2); ctx.fill();
 
-    ctx.fillStyle = '#05070B';
+    // Event horizon: true black core, no light escapes.
+    ctx.fillStyle = '#000000';
     ctx.beginPath(); ctx.arc(mass.x, mass.y, mass.r, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = 'rgba(255,180,110,0.8)';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(255,210,160,0.9)';
+    ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(mass.x, mass.y, mass.r, 0, Math.PI * 2); ctx.stroke();
 
     const orbits = [

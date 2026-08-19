@@ -13,6 +13,9 @@ function initSolarSystem(options) {
   const left = options.left || '15%';
   const scale = options.scale !== undefined ? options.scale : 1;
   const rotateOffset = options.rotateOffset !== undefined ? options.rotateOffset : 0;
+  const parallax = options.parallax !== undefined ? options.parallax : true;
+  const parallaxYFactor = options.parallaxYFactor !== undefined ? options.parallaxYFactor : -0.2;
+  const parallaxXFactor = options.parallaxXFactor !== undefined ? options.parallaxXFactor : 0.08;
 
   const wrap = document.createElement('div');
   wrap.id = 'solar-system';
@@ -55,12 +58,14 @@ function initSolarSystem(options) {
   document.head.appendChild(style);
   document.body.insertBefore(wrap, document.body.firstChild);
 
-  window.addEventListener('scroll', function () {
-    const scrolled = window.scrollY;
-    const moveY = scrolled * -0.2;
-    const moveX = scrolled * 0.08;
-    wrap.style.transform = 'translate(' + moveX + 'px,' + moveY + 'px) scale(' + scale + ')';
-  });
+  if (parallax) {
+    window.addEventListener('scroll', function () {
+      const scrolled = window.scrollY;
+      const moveY = scrolled * parallaxYFactor;
+      const moveX = scrolled * parallaxXFactor;
+      wrap.style.transform = 'translate(' + moveX + 'px,' + moveY + 'px) scale(' + scale + ')';
+    });
+  }
 
   wrap.style.transform = 'scale(' + scale + ')';
 }

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>חשבונאוטיקה להורים | תמונת מצב אמיתית על הילד שלכם</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #starfield { position:fixed; inset:0; z-index:-3; pointer-events:none; }
+
+    .nebula { position:fixed; border-radius:50%; filter:blur(120px); z-index:-2; animation:nebulaFloat 25s infinite ease-in-out alternate; opacity:0.4; pointer-events:none; }
+    .nebula-blue { width:70vw; height:70vw; background:rgba(138,180,255,0.08); top:-20vh; right:-10vw; }
+    .nebula-purple { width:60vw; height:60vw; background:rgba(157,139,255,0.08); bottom:-10vh; left:-10vw; animation-delay:-5s; }
+    @keyframes nebulaFloat { 0% { transform:translate(0,0) scale(1); } 100% { transform:translate(-20px,40px) scale(1.05); } }
+
+    .black-hole-container { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none; }
+    .black-hole-core { position:absolute; transform:translate(-50%,-50%); width:80px; height:80px; background:#000000; border-radius:50%; z-index:20;
+      transition:width 0.35s cubic-bezier(.22,.61,.36,1), height 0.35s cubic-bezier(.22,.61,.36,1);
+      box-shadow:0 0 26px 6px rgba(180,210,255,0.55), 0 0 55px 14px rgba(157,139,255,0.3), inset 0 0 10px 2px rgba(255,255,255,0.3); }
+    .spacetime-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <canvas id="starfield"></canvas>
+  <div class="nebula nebula-blue"></div>
+  <div class="nebula nebula-purple"></div>
+  <div id="bh-system" class="black-hole-container">
+    <canvas id="spacetime-canvas" class="spacetime-canvas"></canvas>
+    <div class="black-hole-core"></div>
+  </div>
+
+  <nav class="fixed top-0 w-full z-50 p-4">
+    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="font-space font-bold text-lg" style="text-decoration:none; color:inherit;">
+        <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
+      </a>
+      <a href="index.html" class="glass-btn !py-2 !px-5 !text-sm">← בחירת מסלול</a>
+    </div>
+  </nav>
+
+  <main class="relative z-10 max-w-4xl mx-auto px-5 pt-32 sm:pt-40 pb-20">
+    <section class="text-center space-y-5 mb-16">
+      <div class="label-tag glass-panel" style="display:inline-flex; color:var(--accent-blue); padding:8px 16px;">
+        <span>👨‍👩‍👧</span><span>מסלול הורים</span>
+      </div>
+      <h1 class="font-space text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">כוח המשיכה של<br><span class="text-gradient">למידה חוויתית</span></h1>
+      <p class="text-base sm:text-lg leading-relaxed max-w-xl mx-auto" style="color:var(--text-muted);">תרגול חשבון שהוא בכיף, ולא ויכוח כל ערב.</p>
+    </section>
+
+    <!-- What you get -->
+    <section class="glass-panel p-6 sm:p-10 space-y-5 text-right mb-10">
+      <h2 class="font-space text-xl sm:text-2xl font-bold mb-1">מה אתם מקבלים</h2>
+
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">🎮 10 משחקי חשיבה מתמטית</span> — לא עוד דף עבודה: שברים, אחוזים, משוואות ואלגברה, שטחים, כפל ולוח הכפל, שאלות מילוליות ועוד — סביבה ויזואלית שהילד רוצה לגעת בה ולנסות, עם מצב תרגול רגוע ומצב אתגר עם שעון.</p>
+      </div>
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">📈 דוח התקדמות אמיתי</span> — רדאר כישורים על פני 8 תחומים, אינדקס מוטיבציה שמראה אם הילד מתאתגר או נתקע, ותובנה פדגוגית פשוטה במילים ("מתקדם מצוין", "עדיין בדרך") שאומרת לכם בדיוק איפה הוא חזק ואיפה כדאי לחזק.</p>
+      </div>
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">🎯 יעד תרגול יומי והתמדה</span> — קובעים יעד דקות ביום, המערכת סופרת רצף ימים (סטריקה) ומראה התקדמות עם "כרית" קטנה כדי שכמעט-הצלחה עדיין תחשב. אפשר גם להגדיר "חוזה תגמול" — יעד קבוע מול פרס אמיתי שאתם בוחרים.</p>
+      </div>
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">🔔 התראות חכמות</span> — עדכון אם הילד לא תרגל יומיים, בלי צורך להיכנס כל יום כדי לבדוק בעצמכם.</p>
+      </div>
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">🔗 קישור אישי לילד, לשיתוף בקלות</span> — שולחים לילד קישור אישי (בוואטסאפ או בהעתקה) שפותח עבורו את המשחק ישירות, בלי סיסמה. אם יש לו מורה פרטי במערכת — ההתקדמות מסונכרנת אוטומטית ביניכם.</p>
+      </div>
+      <div>
+        <p class="leading-relaxed"><span style="color:var(--accent-blue); font-weight:700;">👵 שיתוף עם סבתא וסבא</span> — קישור מעקב קבוע לדוח ההתקדמות, שנפתח בלי צורך בהתחברות בכלל — נוח לשיתוף עם בני משפחה נוספים.</p>
+      </div>
+    </section>
+
+    <section class="glass-panel p-6 sm:p-10 mb-10 text-center space-y-2">
+      <h2 class="font-space text-xl font-bold mb-2">מחירון</h2>
+      <p style="color:var(--text-muted);"><span style="color:var(--text-primary); font-weight:700;">150 ₪ למנוי דו-חודשי</span>, ללא חידוש מנוי אוטומטי.</p>
+      <p class="text-sm"><a href="pricing.html" style="color:var(--accent-turquoise); font-weight:700;">למחירון המלא, כולל מנוי חצי-שנתי ←</a></p>
+      <p style="color:var(--text-muted);" class="text-xs">כרגע הפיילוט פתוח וחינמי לגמרי, ללא התחייבות.</p>
+    </section>
+
+    <!-- Signup -->
+    <section id="signup" class="scroll-mt-24 max-w-xl mx-auto w-full mb-10 space-y-5">
+      <div class="text-center space-y-1">
+        <h2 class="font-space text-xl sm:text-2xl font-bold">איך תעדיפו להתחיל?</h2>
+        <p class="text-sm" style="color:var(--text-muted);">שתי דרכים להצטרף — תבחרו את מה שנוח לכם</p>
+      </div>
+
+      <div id="form-card" class="glass-panel p-6 sm:p-8 space-y-4">
+        <div class="text-center space-y-1 mb-2">
+          <h3 class="font-space text-lg font-bold">🤝 רוצים להשתלב במערכת עם ליווי מלא?</h3>
+          <p class="text-sm" style="color:var(--text-muted);">תשאירו פרטים ונחזור אליכם עם הצטרפות מלווה, שלב אחר שלב.</p>
+        </div>
+        <form id="parentForm" data-prefix="f" class="space-y-4">
+          <div id="f-error-message" class="hidden p-3 rounded-xl text-xs font-semibold" style="background:rgba(255,107,74,0.12); color:var(--accent-flame);"></div>
+          <input id="f-name" placeholder="שם מלא" required class="w-full px-4 py-3 rounded-xl text-sm" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-panel); color:white;">
+          <input id="f-phone" type="tel" placeholder="050-0000000" required class="w-full px-4 py-3 rounded-xl text-sm" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-panel); color:white;">
+          <input id="f-email" type="email" placeholder="אימייל" required class="w-full px-4 py-3 rounded-xl text-sm" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-panel); color:white;">
+          <select id="f-count" class="form-select w-full px-4 py-3 rounded-xl text-sm" style="background-color:rgba(255,255,255,0.05); border:1px solid var(--border-panel); color:white; padding-left:36px;">
+            <option value="ילד אחד">ילד אחד</option>
+            <option value="שני ילדים">שני ילדים</option>
+            <option value="שלושה ילדים ומעלה">שלושה ילדים ומעלה</option>
+          </select>
+          <button type="submit" data-mode="info" class="glass-btn glass-btn-primary w-full justify-center">השאירו פרטים 🚀</button>
+          <p class="text-center text-xs" style="color:var(--text-muted);">🔒 הפרטים נשמרים ומשמשים אותנו ליצירת קשר בלבד.</p>
+        </form>
+      </div>
+      <div id="success-card" class="hidden glass-panel p-6 sm:p-8 text-center space-y-3">
+        <p style="color:var(--accent-turquoise); font-weight:700;">קיבלנו את הפרטים!</p>
+        <p style="color:var(--text-muted);" class="text-sm">נחזור אליכם בקרוב ונלווה אתכם צעד אחר צעד.</p>
+      </div>
+
+      <div class="text-center">
+        <span class="text-xs" style="color:var(--text-muted);">— או —</span>
+      </div>
+
+      <div class="glass-panel p-6 sm:p-8 text-center space-y-3">
+        <h3 class="font-space text-lg font-bold">🧭 בא לכם להתחבר לבד?</h3>
+        <p class="text-sm" style="color:var(--text-muted);">אם אתם מעדיפים להבין את המערכת בעצמכם ולא צריכים ליווי — קפצו ישר למדריך הפעלה עצמאי.</p>
+        <button type="button" id="reveal-guide-btn" class="glass-btn justify-center" style="background:linear-gradient(135deg, rgba(94,234,212,0.18) 0%, rgba(138,180,255,0.18) 100%); border-color:rgba(94,234,212,0.35); color:var(--accent-turquoise);">למדריך העצמאי</button>
+      </div>
+    </section>
+
+    <!-- Practical guide -->
+    <section id="guide" class="hidden scroll-mt-24 space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="font-space text-2xl sm:text-3xl font-bold">מדריך והוראות הפעלה להורה</h2>
+        <p style="color:var(--text-muted);" class="text-sm">איך להטמיע את התרגול בשגרת הבית בלי מאבקים</p>
+      </div>
+
+      <div class="glass-panel p-6 sm:p-8 space-y-8 text-right">
+        <div class="flex items-start gap-4">
+          <div class="font-space font-bold" style="width:40px; height:40px; border-radius:12px; background:rgba(138,180,255,0.1); border:1px solid rgba(138,180,255,0.3); color:var(--accent-blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
+          <div class="space-y-1">
+            <h3 class="font-space text-lg font-bold">הוספת הילד וקבלת קישור אישי</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
+              היכנסו עם חשבון Google, הוסיפו את הילד ותקבלו עבורו קישור אישי (וקוד קצר לגיבוי). שלחו את הקישור לילד בוואטסאפ או פתחו אותו ישירות במכשיר הביתי — לחיצה אחת פותחת עבורו את המשחק, בלי סיסמה. כל תרגול שיעשה מקושר אוטומטית לדוח שלכם.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="font-space font-bold" style="width:40px; height:40px; border-radius:12px; background:rgba(138,180,255,0.1); border:1px solid rgba(138,180,255,0.3); color:var(--accent-blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
+          <div class="space-y-1">
+            <h3 class="font-space text-lg font-bold">קבעו יעד יומי קצר</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
+              בדשבורד אפשר להגדיר יעד תרגול יומי (10, 15, 20 או 30 דקות) — המערכת סופרת רצף ימים ומראה התקדמות עם מעט "כרית" כך שכמעט-הצלחה עדיין נחשבת לניצחון. חמש עד עשר דקות ביום, באותה שעה בערך, עדיפות על פני מפגש ארוך פעם בשבוע. המשחק בנוי כך שהילד יכול לשחק לבד — אתם לא צריכים לשבת לידו.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="font-space font-bold" style="width:40px; height:40px; border-radius:12px; background:rgba(138,180,255,0.1); border:1px solid rgba(138,180,255,0.3); color:var(--accent-blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
+          <div class="space-y-1">
+            <h3 class="font-space text-lg font-bold">עקבו אחרי הדוח, או הגדירו חוזה תגמול</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
+              בדשבורד תראו דיוק, רדאר כישורים, אינדקס מוטיבציה וזמני תרגול — פעם בשבוע מספיק כדי לזהות אם נדרש חיזוק בנושא מסוים. אפשר גם להגדיר "חוזה תגמול": יעד תרגול קבוע מול פרס אמיתי שאתם בוחרים יחד עם הילד.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="font-space font-bold" style="width:40px; height:40px; border-radius:12px; background:rgba(138,180,255,0.1); border:1px solid rgba(138,180,255,0.3); color:var(--accent-blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</div>
+          <div class="space-y-1">
+            <h3 class="font-space text-lg font-bold">שתפו את סבתא, סבא או המורה הפרטי</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
+              יש קישור מעקב קבוע לילד שנפתח בלי צורך בהתחברות בכלל — נוח לשיתוף עם בני משפחה. ואם לילד יש מורה פרטי שמשתמש במערכת, מסרו לו את הקישור של הילד — כך התרגול הביתי וההתקדמות בשיעורים מסונכרנים אוטומטית, וגם המורה רואה תמונת מצב מלאה.
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col items-center gap-3" style="border-top:1px solid var(--border-panel);">
+          <a href="https://mathapp.vercel.app/parent" target="_blank" rel="noopener" class="glass-btn glass-btn-primary">כניסה ראשית לחשבונאוטיקה 🚀</a>
+          <a href="#signup" class="text-sm" style="color:var(--text-muted); text-decoration:underline;">חשבתי על זה שוב, אני מעדיף/ה ליווי</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 px-5 text-center text-xs relative z-10" style="color:var(--text-muted); border-top:1px solid var(--border-panel);">
+    <a href="faq.html" style="color:var(--text-muted); text-decoration:underline;">שאלות ותשובות</a>
+    <span class="mx-2">·</span>
+    © 2026 חשבונאוטיקה. כל הזכויות שמורות.
+  </footer>
+
+  <script src="assets/black-hole.js"></script>
+  <script src="assets/starfield.js"></script>
+  <script src="assets/lead-form.js"></script>
+  <script>
+    initBlackHole({ coreXRatio: 0.85, coreYRatio: 0.25, driftPerScrollPx: 0.12, growPerScrollPx: 0.05, maxGrowth: 55 });
+    initStarfield();
+
+    function revealGuide() {
+      document.getElementById('guide').classList.remove('hidden');
+    }
+
+    document.getElementById('parentForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const ok = submitLeadForm(this, 'parent', function () {
+        document.getElementById('form-card').classList.add('hidden');
+        document.getElementById('success-card').classList.remove('hidden');
+        revealGuide();
+      });
+    });
+
+    document.getElementById('reveal-guide-btn').addEventListener('click', function () {
+      revealGuide();
+      document.getElementById('guide').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

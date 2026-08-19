@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>מחירון | חשבונאוטיקה</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #starfield { position:fixed; inset:0; z-index:-3; pointer-events:none; }
+    .price-card { position:relative; display:flex; flex-direction:column; gap:14px; }
+    .price-card.placeholder { opacity:0.6; border-style:dashed; }
+    .price-badge { position:absolute; top:-12px; inset-inline-start:24px; background:linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-indigo) 100%); color:var(--bg-deep); font-size:11px; font-weight:800; padding:4px 12px; border-radius:999px; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <canvas id="starfield"></canvas>
+
+  <nav class="fixed top-0 w-full z-50 p-4">
+    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="font-space font-bold text-lg" style="text-decoration:none; color:inherit;">
+        <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
+      </a>
+      <a href="index.html" class="glass-btn !py-2 !px-5 !text-sm">← בחירת מסלול</a>
+    </div>
+  </nav>
+
+  <main class="relative z-10 max-w-5xl mx-auto px-5 pt-32 sm:pt-40 pb-20">
+    <div class="text-center space-y-3 mb-14">
+      <div class="label-tag glass-panel" style="display:inline-flex; color:var(--accent-blue); padding:8px 16px;">
+        <span>💳</span><span>מחירון</span>
+      </div>
+      <h1 class="font-space text-3xl sm:text-4xl font-bold">בחרו את המסלול שמתאים לכם</h1>
+      <p style="color:var(--text-muted);">כרגע הפיילוט פתוח וחינמי לגמרי, ללא התחייבות — המחירים למטה ייכנסו לתוקף בהמשך.</p>
+    </div>
+
+    <!-- Parents -->
+    <section class="mb-16">
+      <h2 class="font-space text-xl sm:text-2xl font-bold mb-6 text-center">👨‍👩‍👧 מחירון להורים</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="glass-panel p-6 sm:p-8 price-card">
+          <div class="price-badge">המחיר הנוכחי</div>
+          <h3 class="font-space text-lg font-bold">מנוי דו-חודשי</h3>
+          <p class="font-space text-3xl font-bold" style="color:var(--accent-blue);">150 ₪</p>
+          <p class="text-sm" style="color:var(--text-muted);">ל-2 חודשים, ללא חידוש מנוי אוטומטי.</p>
+          <a href="parent.html#signup" class="glass-btn glass-btn-primary justify-center mt-2">הרשמה למסלול הורים</a>
+        </div>
+        <div class="glass-panel p-6 sm:p-8 price-card placeholder">
+          <h3 class="font-space text-lg font-bold">מנוי חצי-שנתי</h3>
+          <p class="font-space text-3xl font-bold" style="color:var(--text-muted);">בקרוב</p>
+          <p class="text-sm" style="color:var(--text-muted);">מסלול חיסכון למי שרוצה להתחייב לטווח ארוך יותר — פרטים יתעדכנו כאן.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Private teachers -->
+    <section class="mb-16">
+      <h2 class="font-space text-xl sm:text-2xl font-bold mb-6 text-center">👩‍🏫 מחירון למורים פרטיים</h2>
+      <p class="text-center text-sm mb-6" style="color:var(--text-muted);">עד 4 תלמידים במקביל, בכל המסלולים.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="glass-panel p-6 sm:p-8 price-card">
+          <div class="price-badge">המחיר הנוכחי</div>
+          <h3 class="font-space text-lg font-bold">מנוי דו-חודשי</h3>
+          <p class="font-space text-3xl font-bold" style="color:var(--accent-blue);">200 ₪</p>
+          <p class="text-sm" style="color:var(--text-muted);">ל-2 חודשים, עם בחירה לחדש אוטומטית או לא.</p>
+          <a href="teacher.html#signup" class="glass-btn glass-btn-primary justify-center mt-2">הרשמה למסלול מורים</a>
+        </div>
+        <div class="glass-panel p-6 sm:p-8 price-card placeholder">
+          <h3 class="font-space text-lg font-bold">מנוי ארוך טווח</h3>
+          <p class="font-space text-3xl font-bold" style="color:var(--text-muted);">בקרוב</p>
+          <p class="text-sm" style="color:var(--text-muted);">מסלול חיסכון למורים שרוצים להתחייב לתקופה ארוכה יותר — פרטים יתעדכנו כאן.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutions -->
+    <section class="glass-panel p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+      <div class="flex items-start gap-4">
+        <div class="text-3xl">🏫</div>
+        <div>
+          <h3 class="font-space text-lg font-bold mb-1">מוסדות ובתי ספר</h3>
+          <p style="color:var(--text-muted);" class="text-sm leading-relaxed">צוות מורים גדול או מוסד חינוכי? ההצעה שונה לגמרי ממחירון המורה הפרטי — נבנה יחד הצעה מותאמת.</p>
+        </div>
+      </div>
+      <a href="index.html#tracks" class="glass-btn whitespace-nowrap">השאירו פרטים</a>
+    </section>
+  </main>
+
+  <footer class="py-8 px-5 text-center text-xs relative z-10" style="color:var(--text-muted); border-top:1px solid var(--border-panel);">
+    <a href="faq.html" style="color:var(--text-muted); text-decoration:underline;">שאלות ותשובות</a>
+    <span class="mx-2">·</span>
+    © 2026 חשבונאוטיקה. כל הזכויות שמורות.
+  </footer>
+
+  <script src="assets/starfield.js"></script>
+  <script>initStarfield();</script>
+</body>
+</html>

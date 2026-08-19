@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>שאלות ותשובות | חשבונאוטיקה</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #starfield { position:fixed; inset:0; z-index:-3; pointer-events:none; }
+    .faq-item summary { cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item .faq-icon { transition:transform 0.25s ease; flex-shrink:0; color:var(--accent-blue); }
+    .faq-item[open] .faq-icon { transform:rotate(45deg); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <canvas id="starfield"></canvas>
+
+  <nav class="fixed top-0 w-full z-50 p-4">
+    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="font-space font-bold text-lg" style="text-decoration:none; color:inherit;">
+        <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
+      </a>
+      <a href="index.html" class="glass-btn !py-2 !px-5 !text-sm">← בחירת מסלול</a>
+    </div>
+  </nav>
+
+  <main class="relative z-10 max-w-3xl mx-auto px-5 pt-32 sm:pt-40 pb-20">
+    <div class="text-center space-y-3 mb-12">
+      <div class="label-tag glass-panel" style="display:inline-flex; color:var(--accent-blue); padding:8px 16px;">
+        <span>❓</span><span>שאלות נפוצות</span>
+      </div>
+      <h1 class="font-space text-3xl sm:text-4xl font-bold">שאלות ותשובות</h1>
+      <p style="color:var(--text-muted);">כל מה שרציתם לדעת על חשבונאוטיקה, במקום אחד</p>
+    </div>
+
+    <div class="space-y-3" id="faqList">
+      <!-- FAQ items go here -->
+    </div>
+  </main>
+
+  <footer class="py-8 px-5 text-center text-xs relative z-10" style="color:var(--text-muted); border-top:1px solid var(--border-panel);">
+    © 2026 חשבונאוטיקה. כל הזכויות שמורות.
+  </footer>
+
+  <script src="assets/starfield.js"></script>
+  <script>
+    initStarfield();
+
+    const faqData = [
+      // { q: 'שאלה לדוגמה?', a: 'תשובה לדוגמה.' },
+    ];
+    const faqList = document.getElementById('faqList');
+    faqData.forEach(function (item) {
+      const details = document.createElement('details');
+      details.className = 'faq-item glass-panel p-5 sm:p-6';
+      details.innerHTML = `
+        <summary class="font-space font-bold text-base sm:text-lg">
+          <span>${item.q}</span>
+          <span class="faq-icon text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--text-muted);">${item.a}</p>
+      `;
+      faqList.appendChild(details);
+    });
+  </script>
+</body>
+</html>
