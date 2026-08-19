@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך חשבונאוטיקה - הורים ומורים</title>
+
+    <!-- תצוגה מקדימה ושיתוף ברשתות חברתיות ווואטסאפ (Open Graph / WhatsApp Rich Preview) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="חשבונאוטיקה - מדריך המשתמש הרשמי 🚀">
+    <meta property="og:description" content="מערכת משחקים שהופכת את תרגול המתמטיקה לחוויה כיפית ומהנה. קראו את מדריך ההורים והמורים בגובה העיניים.">
+    <meta property="og:image" content="og-preview.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&family=Rubik:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Theme Variables - Designed for high contrast and maximum readability */
+        :root {
+            --bg-dark: #020617;
+            --bg-gradient: radial-gradient(ellipse at 50% 60%, #0f172a 0%, #020617 100%);
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --primary: #818cf8;
+            --primary-hover: #6366f1;
+            --accent-purple: #c084fc;
+            --accent-green: #34d399;
+            --text-main: #ffffff;
+            --text-muted: #e2e8f0;
+            --switcher-bg: rgba(15, 23, 42, 0.7);
+            --switcher-border: rgba(255, 255, 255, 0.15);
+            --step-num-bg: rgba(129, 140, 248, 0.2);
+            --step-num-border: rgba(129, 140, 248, 0.4);
+        }
+
+        body.light-mode {
+            --bg-dark: #f8fafc;
+            --bg-gradient: radial-gradient(ellipse at 50% 60%, #e2e8f0 0%, #f1f5f9 100%);
+            --card-bg: #ffffff;
+            --card-border: rgba(99, 102, 241, 0.2);
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent-purple: #9333ea;
+            --accent-green: #059669;
+            --text-main: #020617;
+            --text-muted: #334155;
+            --switcher-bg: rgba(226, 232, 240, 0.9);
+            --switcher-border: rgba(99, 102, 241, 0.25);
+            --step-num-bg: rgba(79, 70, 229, 0.1);
+            --step-num-border: rgba(79, 70, 229, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            background-image: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.4s ease, color 0.4s ease, background-image 0.4s ease;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Starry background effect - hidden in light mode */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 150px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80px 220px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 150px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 250px 350px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 450px 280px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 550px 550px;
+            opacity: 0.3;
+            transition: opacity 0.4s ease;
+        }
+
+        body.light-mode .stars {
+            opacity: 0;
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        /* Header Actions (Theme & Info) */
+        .header-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        /* Header design */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-area {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.4));
+        }
+
+        .logo-text {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 900;
+            font-size: 2.6rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to left, var(--text-main), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hero Banner Card */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(129, 140, 248, 0.15), rgba(192, 132, 252, 0.15));
+            border: 2px dashed var(--primary);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        body.light-mode .hero-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(147, 51, 234, 0.08));
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.05);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(129, 140, 248, 0.25);
+            color: #c7d2fe;
+            padding: 0.4rem 1.4rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--primary);
+        }
+
+        body.light-mode .hero-badge {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .hero-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .hero-card p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+
+        /* Interactive Switcher */
+        .role-switcher-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .role-switcher {
+            background: var(--switcher-bg);
+            border: 1px solid var(--switcher-border);
+            border-radius: 9999px;
+            padding: 0.4rem;
+            display: flex;
+            position: relative;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .role-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.75rem 2rem;
+            font-size: 1.15rem;
+            font-weight: 800;
+            cursor: pointer;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .role-btn {
+                padding: 0.6rem 1.4rem;
+                font-size: 1rem;
+            }
+        }
+
+        .role-btn.active {
+            color: #ffffff;
+        }
+
+        body.light-mode .role-btn.active {
+            color: #ffffff;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0.4rem;
+            right: 0.4rem;
+            height: calc(100% - 0.8rem);
+            width: calc(50% - 0.4rem);
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            border-radius: 9999px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
+        }
+
+        /* Shift slider for teacher */
+        .role-switcher.teacher-active .slider {
+            transform: translateX(-100%);
+        }
+
+        /* Content Blocks */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Premium Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-full {
+                grid-column: span 2;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(129, 140, 248, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #a5b4fc;
+            margin-bottom: 1.25rem;
+        }
+
+        body.light-mode .card-icon {
+            color: var(--primary);
+            background: rgba(79, 70, 229, 0.08);
+        }
+
+        .card-icon.green {
+            background: rgba(52, 211, 153, 0.15);
+            color: #6ee7b7;
+        }
+
+        body.light-mode .card-icon.green {
+            color: var(--accent-green);
+            background: rgba(5, 150, 105, 0.08);
+        }
+
+        .card-icon.purple {
+            background: rgba(192, 132, 252, 0.15);
+            color: #e9d5ff;
+        }
+
+        body.light-mode .card-icon.purple {
+            color: var(--accent-purple);
+            background: rgba(147, 51, 234, 0.08);
+        }
+
+        h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        p.card-desc {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            line-height: 1.65;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Stepper / Timeline */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--step-num-bg);
+            border: 1px solid var(--step-num-border);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        body.light-mode .step-num {
+            color: var(--primary);
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* Tips & Alerts */
+        .alert {
+            background: rgba(129, 140, 248, 0.05);
+            border-right: 4px solid var(--primary);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.85rem;
+            align-items: flex-start;
+        }
+
+        .alert-icon {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .alert-content p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .alert-content strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 4.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <div class="container">
+        
+        <!-- Header Action Controls -->
+        <div class="header-actions">
+            <button id="themeToggle" class="action-btn" onclick="toggleTheme()" aria-label="שינוי ערכת נושא">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+
+        <header>
+            <div class="logo-area">
+                <i class="fa-solid fa-rocket logo-icon"></i>
+                <span class="logo-text">חשבונאוטיקה</span>
+            </div>
+            <h1>מדריך המשתמש הרשמי</h1>
+        </header>
+
+        <!-- Hero Explanation Banner (High contrast, highly legible) -->
+        <div class="hero-card">
+            <div class="hero-badge">🚀 מתמטיקה בגובה העיניים</div>
+            <h2>מה זה חשבונאוטיקה?</h2>
+            <p>חשבונאוטיקה היא מערכת משחקים שהופכת את תרגול המתמטיקה לחוויה כיפית ומהנה. במקום דפי עבודה משעממים ותסכול, הילדים משחקים, נוגעים במספרים ומרגישים את המתמטיקה קמה לתחייה דרך הידיים והעיניים. המשחקים עוזרים להם להבין את הרעיונות המתמטיים בצורה מוחשית, ומפתחים אצלם הבנה עמוקה שתעזור להם בבית הספר, בחטיבה, בתיכון וגם בהמשך החיים.</p>
+        </div>
+
+        <!-- Role Selector Switcher -->
+        <div class="role-switcher-container">
+            <div class="role-switcher" id="roleSwitcher">
+                <div class="slider"></div>
+                <button class="role-btn active" id="btnParent" onclick="switchRole('parent')">
+                    <i class="fa-solid fa-user-astronaut"></i> אני הורה
+                </button>
+                <button class="role-btn" id="btnTeacher" onclick="switchRole('teacher')">
+                    <i class="fa-solid fa-chalkboard-user"></i> אני מורה
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== PARENT SECTION ==================== -->
+        <div class="content-section active" id="parentSection">
+            <div class="grid">
+                
+                <!-- Card 1: Introduction -->
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h2>השותפות השבועית שלכם</h2>
+                    <p class="card-desc">איך אתם עוזרים לילד שלכם להצליח? זה פשוט: מסכמים ביחד על צ'ופר או פרס נחמד (לא חייב להיות משהו בכסף - זמן איכות ביחד או טיול אופניים משותף עובדים מעולה!), ילדכם מתרגל, והמערכת דואגת לספור את ההצלחות ולמדוד את זמן התרגול.</p>
+                    
+                    <div class="alert">
+                        <div class="alert-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="alert-content">
+                            <strong>הסכם הפרסים שלכם</strong>
+                            <p>פרסים חווייתיים (כמו טיול אופניים או זמן איכות משותף) מדרבנים יותר מפרסים חומריים. נסו ותיווכחו!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Features -->
+                <div class="card">
+                    <div class="card-icon green"><i class="fa-solid fa-chart-line"></i></div>
+                    <h2>הקישור להורים שלכם</h2>
+                    <p class="card-desc">המורה של ילדכם ישלח לכם קישור אישי לנייד. בלחיצה אחת, בלי סיסמאות ובלי הרשמה, תוכלו לראות:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-check"></i></span>
+                            <div class="step-content">
+                                <h3>מעקב פשוט בזמן אמת</h3>
+                                <p>גרפים ברורים שמראים כמה דקות הילד תרגל השבוע.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-check"></i></span>
+                            <div class="step-content">
+                                <h3>קביעת יעד</h3>
+                                <p>אפשרות להחליט ביחד על יעד תרגול שבועי ומעקב אחר צבירת הכוכבים והפרסים.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-check"></i></span>
+                            <div class="step-content">
+                                <h3>תזכורות והתראות לטלפון</h3>
+                                <p>קבלת הודעה מיידית כשהילד מסיים משחק או כשהגיע לפרס שהבטחתם.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Step-by-Step Parent Link (Full width) -->
+                <div class="card grid-full">
+                    <div class="card-icon purple"><i class="fa-solid fa-circle-play"></i></div>
+                    <h2>איך מתחילים כהורים? (4 צעדים מהירים)</h2>
+                    <p class="card-desc">המערכת תסייע לכם להסתנכרן בקלות עם בית הספר. הנה הצעדים:</p>
+                    
+                    <div class="steps" style="margin-top: 1rem;">
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <div class="step-content">
+                                <h3>קיבלתם את הקישור?</h3>
+                                <p>לוחצים על הקישור שקיבלתם מהמורה ונכנסים ישירות לדוח הלמידה המעודכן של ילדכם.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <div class="step-content">
+                                <h3>מגדירים את מערכת ההתמדה</h3>
+                                <p>נכנסים ללשונית "התמדה". מגדירים כמה דקות סיכמתם עם ילדכם לתרגל (למשל: תרגול יומי של 10 או 15 דקות ביום). לא חייבים לסכם על פרס (בהתאם לרצון ולהחלטת ההורים) - מערכת ההתמדה מורכבת גם מקבלת התראות לטלפון וגם מצ'ופרים ופרסים.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <div class="step-content">
+                                <h3>אפשרו התראות בנייד</h3>
+                                <p>לחצו על כפתור "קבלת התראות" על מנת לקבל עדכונים שוטפים ישירות לנייד שלכם.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">4</span>
+                            <div class="step-content">
+                                <h3>הוספה למסך הבית</h3>
+                                <p>בצעו "הוספה למסך הבית" דרך הגדרות הדפדפן שלכם כדי לגשת למערכת בקלות כמו אפליקציה רגילה. *(למשתמשי אייפון/אייפד: לוחצים על כפתור השיתוף בדפדפן Safari ואז בוחרים ב-'הוסף למסך הבית').*</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== TEACHER SECTION ==================== -->
+        <div class="content-section" id="teacherSection">
+            <div class="grid">
+                
+                <!-- Card 1: Teacher Dashboard Overview -->
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h2>הובלת הלמידה וניהול הכיתה</h2>
+                    <p class="card-desc">המערכת מעניקה לכם כלי קל ומהיר לניהול הלמידה של תלמידכם. המורה הוא זה שמנהל את הקישורים ושולח אותם לתלמיד ולהורים:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-desktop"></i></span>
+                            <div class="step-content">
+                                <h3>פרופיל כיתתי מפורט</h3>
+                                <p>המורה מקבל עמוד ניהול כיתתי מפורט המציג את תמונת המצב של כל הכיתה במבט על, לצד דף ניהול אישי וממוקד עבור כל תלמיד.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-link"></i></span>
+                            <div class="step-content">
+                                <h3>שני קישורים ייחודיים לכל תלמיד</h3>
+                                <p>לכל תלמיד במערכת נוצרים שני קישורים נפרדים: <strong>קישור משחק</strong> (שבו התלמיד משחק ומתרגל) ו-<strong>קישור הורים</strong> (דף צפייה אישי ומאובטח להורים למעקב והתמדה).</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num"><i class="fa-solid fa-paper-plane"></i></span>
+                            <div class="step-content">
+                                <h3>אחריות שילוח הקישורים</h3>
+                                <p>המורה אחראי לשלוח את קישור המשחק ישירות לתלמיד, ואת קישור ההורים ישירות להורי התלמיד.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Share flow & Actions -->
+                <div class="card">
+                    <div class="card-icon green"><i class="fa-solid fa-share-nodes"></i></div>
+                    <h2>שיגור משימות וחיבור ההורים</h2>
+                    <p class="card-desc">איך מחברים את כולם לתהליך בקלות? המורה מנהל את כל הקשר:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <div class="step-content">
+                                <h3>שיגור משימות מהיר</h3>
+                                <p>קביעת שלב ממוקד במשחק (למשל רמה 10 של שברים) עבור כל הכיתה או באופן אינדיבידואלי לתלמיד בודד שצריך עזרה.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <div class="step-content">
+                                <h3>רשימת קישורים מהירה</h3>
+                                <p>מפיקים בלחיצת כפתור אחת רשימת קישורים מרוכזת של כל ההורים בכיתה, ושולחים אותם בקלות בוואטסאפ. ההורים נכנסים בלי הרשמה ומעודדים מהבית.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <div class="step-content">
+                                <h3>מעקב קושי והתקדמות</h3>
+                                <p>לוח הבקרה מראה מי מתקדם ומי חווה קושי בזמן אמת, ומאפשר לכם לתמוך בתלמידים בדיוק איפה שצריך.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Preview feature (Full width) -->
+                <div class="card grid-full">
+                    <div class="card-icon purple"><i class="fa-solid fa-gamepad"></i></div>
+                    <h2>מצב סימולציה למורים: "נסה בעצמך"</h2>
+                    <p class="card-desc">המערכת כוללת מצב סימולציה למורים. בתוך טבלת השלבים שלכם במשחק, תלחצו על כפתור <strong>"נסה בעצמך" (Preview)</strong> והמשחק ייפתח עבורכם לניסיון מהיר ללא השפעה על נתוני הכיתה.</p>
+                    
+                    <div class="alert" style="background: rgba(168, 85, 247, 0.05); border-right-color: var(--accent-purple); margin-top: 1.5rem;">
+                        <div class="alert-icon" style="color: #c084fc;"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="alert-content">
+                            <strong>רעיונות למשחקים ושלבים?</strong>
+                            <p>יש לכם רעיונות למשחקים ולשלבים שמתאימים לכיתה שלכם? ספרו לנו! אנו נשמח לפתח משחקים ושאלות חדשות לפי הדרישות שלכם.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 פרויקט חשבונאוטיקה. כל הזכויות שמורות לצוות הפיתוח ולבתי הספר השותפים.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function switchRole(role) {
+            const switcher = document.getElementById('roleSwitcher');
+            const btnParent = document.getElementById('btnParent');
+            const btnTeacher = document.getElementById('btnTeacher');
+            const parentSec = document.getElementById('parentSection');
+            const teacherSec = document.getElementById('teacherSection');
+
+            if (role === 'teacher') {
+                switcher.classList.add('teacher-active');
+                btnParent.classList.remove('active');
+                btnTeacher.classList.add('active');
+                
+                parentSec.classList.remove('active');
+                teacherSec.classList.add('active');
+            } else {
+                switcher.classList.remove('teacher-active');
+                btnTeacher.classList.remove('active');
+                btnParent.classList.add('active');
+                
+                teacherSec.classList.remove('active');
+                parentSec.classList.add('active');
+            }
+        }
+
+        // Toggle Day / Night Mode
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        }
+    </script>
+</body>
+</html>
