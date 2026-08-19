@@ -1,13 +1,15 @@
 /**
- * Auto-advancing media gallery + full-screen lightbox.
- * - Strip auto-scrolls through items on an interval; pauses on hover/touch.
+ * Single-frame auto-rotating media showcase + full-screen lightbox.
+ * - One centered frame cycles through items automatically with a fade
+ *   transition; pauses on hover/touch. No horizontal scrolling — the whole
+ *   showcase fits on screen at any viewport width.
  * - Lightbox uses object-fit:contain within a viewport-safe box so images
  *   and GIFs never get cropped or require scrolling on mobile.
  *
  * Usage:
- *   <div id="galleryStrip"></div>
+ *   <div id="galleryShowcase"></div>
  *   <script src="assets/gallery.js"></script>
- *   <script>initGallery('galleryStrip', [{src:'a.gif', label:'...'}, ...]);</script>
+ *   <script>initGallery('galleryShowcase', [{src:'a.gif', label:'...'}, ...]);</script>
  */
 function initGallery(containerId, items, options) {
   options = options || {};
@@ -16,12 +18,20 @@ function initGallery(containerId, items, options) {
   if (!container || !items || !items.length) return;
 
   container.innerHTML = `
-    <div class="gallery-strip" style="display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; padding:4px 2px 14px;">
-      ${items.map(function (item, i) {
-        return `<div class="gallery-thumb" data-idx="${i}" style="flex:0 0 auto; width:220px; aspect-ratio:16/10; border-radius:16px; overflow:hidden; cursor:pointer; border:1px solid var(--border-panel, rgba(255,255,255,0.12));">
-          <img src="${item.src}" alt="${item.label}" style="width:100%; height:100%; object-fit:cover;">
-        </div>`;
-      }).join('')}
+    <div class="gallery-frame" style="position:relative; max-width:560px; margin:0 auto;">
+      <div class="gallery-frame-box" style="position:relative; width:100%; aspect-ratio:16/10; border-radius:20px; overflow:hidden; cursor:pointer; border:1px solid var(--border-panel, rgba(255,255,255,0.12));">
+        ${items.map(function (item, i) {
+          return `<img data-idx="${i}" src="${item.src}" alt="${item.label}"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:${i === 0 ? 1 : 0}; transition:opacity 0.6s ease;">`;
+        }).join('')}
+      </div>
+      <p class="gallery-frame-caption" style="margin-top:10px; font-size:13px; text-align:center; color:var(--accent-blue, #8AB4FF);"></p>
+      <div class="gallery-dots" style="display:flex; justify-content:center; gap:6px; margin-top:8px;">
+        ${items.map(function (item, i) {
+          return `<button data-idx="${i}" style="width:${i === 0 ? '18px' : '7px'}; height:7px; border-radius:999px; border:none; padding:0;
+            background:${i === 0 ? 'var(--accent-blue, #8AB4FF)' : 'rgba(255,255,255,0.25)'}; cursor:pointer; transition:all 0.3s ease;"></button>`;
+        }).join('')}
+      </div>
     </div>
     <div id="galleryLightbox" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(3,5,8,0.96);
       align-items:center; justify-content:center; flex-direction:column; padding:16px; box-sizing:border-box;">
@@ -37,25 +47,41 @@ function initGallery(containerId, items, options) {
     </div>
   `;
 
-  const strip = container.querySelector('.gallery-strip');
+  const frameBox = container.querySelector('.gallery-frame-box');
+  const frameCaption = container.querySelector('.gallery-frame-caption');
+  const frameImgs = Array.prototype.slice.call(container.querySelectorAll('.gallery-frame-box img'));
+  const dots = Array.prototype.slice.call(container.querySelectorAll('.gallery-dots button'));
   const lightbox = container.querySelector('#galleryLightbox');
   const imgEl = container.querySelector('#galleryImg');
   const captionEl = container.querySelector('#galleryCaption');
   let currentIdx = 0;
   let autoTimer = null;
 
+  function showFrame(idx) {
+    currentIdx = (idx + items.length) % items.length;
+    frameImgs.forEach(function (img, i) {
+      img.style.opacity = i === currentIdx ? '1' : '0';
+    });
+    dots.forEach(function (dot, i) {
+      dot.style.width = i === currentIdx ? '18px' : '7px';
+      dot.style.background = i === currentIdx ? 'var(--accent-blue, #8AB4FF)' : 'rgba(255,255,255,0.25)';
+    });
+    frameCaption.textContent = items[currentIdx].label;
+  }
+  showFrame(0);
+
   function showLightbox(idx) {
     currentIdx = (idx + items.length) % items.length;
     imgEl.src = items[currentIdx].src;
     captionEl.textContent = items[currentIdx].label;
     lightbox.style.display = 'flex';
+    showFrame(currentIdx);
   }
   function hideLightbox() { lightbox.style.display = 'none'; }
 
-  container.querySelectorAll('.gallery-thumb').forEach(function (thumb) {
-    thumb.addEventListener('click', function () {
-      showLightbox(parseInt(thumb.getAttribute('data-idx'), 10));
-    });
+  frameBox.addEventListener('click', function () { showLightbox(currentIdx); });
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () { showFrame(parseInt(dot.getAttribute('data-idx'), 10)); });
   });
   container.querySelector('#galleryClose').addEventListener('click', hideLightbox);
   container.querySelector('#galleryPrev').addEventListener('click', function () { showLightbox(currentIdx - 1); });
@@ -68,17 +94,11 @@ function initGallery(containerId, items, options) {
     if (e.key === 'ArrowRight') showLightbox(currentIdx + 1);
   });
 
-  function autoAdvance() {
-    const maxScroll = strip.scrollWidth - strip.clientWidth;
-    if (maxScroll <= 0) return;
-    let next = strip.scrollLeft + 236;
-    if (next >= maxScroll) next = 0;
-    strip.scrollTo({ left: next, behavior: 'smooth' });
-  }
+  function autoAdvance() { showFrame(currentIdx + 1); }
   function startAuto() { autoTimer = setInterval(autoAdvance, autoAdvanceMs); }
   function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
   startAuto();
-  strip.addEventListener('mouseenter', stopAuto);
-  strip.addEventListener('mouseleave', startAuto);
-  strip.addEventListener('touchstart', stopAuto, { passive: true });
+  frameBox.addEventListener('mouseenter', stopAuto);
+  frameBox.addEventListener('mouseleave', startAuto);
+  frameBox.addEventListener('touchstart', stopAuto, { passive: true });
 }
