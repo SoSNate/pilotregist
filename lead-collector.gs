@@ -85,15 +85,15 @@ function doPost(e) {
 function sendNewLeadNotification(lead) {
   if (!NOTIFY_EMAIL) return;
   try {
-    var subject = 'ליד חדש בחשבונאוטיקה' + (lead.roleLabel ? ' — ' + lead.roleLabel : '');
+    var subject = 'ליד חדש בחשבונאוטיקה' + (lead.roleLabel ? ' - ' + lead.roleLabel : '');
     var bodyLines = [
       'התקבל ליד חדש דרך דף הנחיתה:',
       '',
-      'שם: ' + (lead.name || '—'),
-      'תפקיד: ' + (lead.roleLabel || '—'),
-      'טלפון: ' + (lead.phone || '—'),
-      'אימייל: ' + (lead.email || '—'),
-      'כמות תלמידים/ילדים: ' + (lead.studentsCount || '—'),
+      'שם: ' + (lead.name || '-'),
+      'תפקיד: ' + (lead.roleLabel || '-'),
+      'טלפון: ' + (lead.phone || '-'),
+      'אימייל: ' + (lead.email || '-'),
+      'כמות תלמידים/ילדים: ' + (lead.studentsCount || '-'),
       lead.about ? ('הערות: ' + lead.about) : '',
       '',
       'זמן: ' + lead.nowStr
