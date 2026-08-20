@@ -28,7 +28,7 @@
       <div class="font-space font-bold text-lg">
         <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
       </div>
-      <a href="#roleSwitch" class="glass-btn !py-2 !px-5 !text-sm">בחרו מסלול</a>
+      <a href="#roleSwitch" class="glass-btn !py-2 !px-5 !text-sm">מורה או הורה?</a>
     </div>
   </nav>
 
@@ -43,7 +43,7 @@
         <span class="text-gradient">אחר לגמרי.</span>
       </h1>
       <p id="roleSupportingText" class="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto" style="color:var(--text-muted);">
-        חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שנוגעת בכיס בקושי ומאפשרת לילד לגעת במתמטיקה ולראות אותה חיה — ובמקביל אוספת נתונים ברורים על ההתקדמות עבור המורה או ההורה.
+        חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שמאפשרת לילד להרגיש את המספרים זזים ולראות את המתמטיקה חיה — ובמקביל מרכזת נתונים לדוחות וגרפים על ההתקדמות, הסקרנות, המוטיבציה ועוד... עבור המורה או ההורה.
       </p>
       <a href="https://aritmetica.nt-school.app/demo" target="_blank" rel="noopener" class="glass-btn" style="display:inline-flex; background:linear-gradient(135deg, var(--accent-turquoise) 0%, var(--accent-blue) 100%); border:none; color:var(--bg-deep); box-shadow:0 0 20px rgba(94,234,212,0.3);">🎮 נסו את המשחק בעצמכם — דמו חינמי</a>
     </section>
@@ -52,7 +52,7 @@
     <section class="mt-24 glass-panel p-6 sm:p-10 space-y-4 text-right">
       <h2 class="font-space text-2xl sm:text-3xl font-bold">מה זו חשבונאוטיקה?</h2>
       <p class="leading-relaxed" style="color:var(--text-muted);">
-        חשבונאוטיקה היא לא דף עבודה — היא חקירה. התלמיד <span style="color:var(--accent-blue); font-weight:700;">רואה ונוגע</span> במתמטיקה דרך משחקים ויזואליים, במקום לפתור תרגילים על נייר. עלות נמוכה, נגישה ישירות מהדפדפן בלי התקנה, וכל צעד שהוא עושה הופך לנתון ברור על ההתקדמות שלו.
+        חשבונאוטיקה היא לא דף עבודה — היא חקירה. במקום תרגול במחברת, התלמיד <span style="color:var(--accent-blue); font-weight:700;">מזיז, מנסה ומגלה</span> דרך משחקים ויזואליים. התרגול זמין בכל מקום — בנסיעה, בתחבורה ציבורית או אפילו בחופשה — ישירות מהדפדפן, בלי התקנה. וכל צעד שהתלמיד עושה הופך לנתון ברור על ההתקדמות שלו.
       </p>
     </section>
 
@@ -67,13 +67,17 @@
 
     <!-- Role picker -->
     <section class="mt-24 text-center space-y-4">
+      <div class="space-y-2 mb-6">
+        <h2 class="font-space text-2xl sm:text-3xl font-bold">מי אתם?</h2>
+        <p style="color:var(--text-muted);">בחרו כדי לראות בדיוק מה המערכת נותנת לכם</p>
+      </div>
       <div class="flex flex-col items-center gap-4">
         <div class="role-switch glass-panel" id="roleSwitch" data-role="teacher">
           <div class="role-thumb"></div>
           <button type="button" data-role="teacher" class="active">👩‍🏫 מורה</button>
           <button type="button" data-role="parent">👨‍👩‍👧 הורה</button>
         </div>
-        <a id="roleCta" href="teacher.html" class="glass-btn glass-btn-primary">להצעה למורים 🚀</a>
+        <a id="roleCta" href="teacher.html" class="glass-btn glass-btn-primary">מה מקבלים המורים? 🚀</a>
       </div>
     </section>
 
@@ -132,13 +136,13 @@
     (function () {
       const roleCopy = {
         teacher: {
-          text: 'חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שנוגעת בכיס בקושי ומאפשרת לתלמיד לגעת במתמטיקה ולראות אותה חיה — ובמקביל אוספת נתונים ברורים על ההתקדמות עבור המורה.',
-          ctaText: 'להצעה למורים 🚀',
+          text: 'חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שמאפשרת לתלמיד להרגיש את המספרים זזים ולראות את המתמטיקה חיה — ובמקביל מרכזת נתונים לדוחות וגרפים על ההתקדמות, הסקרנות, המוטיבציה ועוד... עבור המורה.',
+          ctaText: 'מה מקבלים המורים? 🚀',
           ctaHref: 'teacher.html'
         },
         parent: {
-          text: 'חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שנוגעת בכיס בקושי ומאפשרת לילד לגעת במתמטיקה ולראות אותה חיה — ובמקביל אוספת נתונים ברורים על ההתקדמות עבורכם.',
-          ctaText: 'להצעה להורים 🚀',
+          text: 'חשבונאוטיקה היא סביבת משחקים ללימוד חשבון, שמאפשרת לילד להרגיש את המספרים זזים ולראות את המתמטיקה חיה — ובמקביל מרכזת נתונים לדוחות וגרפים על ההתקדמות, הסקרנות, המוטיבציה ועוד... עבורכם.',
+          ctaText: 'מה מקבלים ההורים? 🚀',
           ctaHref: 'parent.html'
         }
       };
