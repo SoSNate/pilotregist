@@ -21,6 +21,13 @@
 
 html { scroll-behavior: smooth; }
 
+html.a11y-large-text { font-size: 118%; }
+
+html.a11y-high-contrast { --text-muted: rgba(255, 255, 255, 0.92); --border-panel: rgba(255, 255, 255, 0.35); }
+html.a11y-high-contrast body { background-color: #000000; }
+html.a11y-high-contrast .glass-panel { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
+html.a11y-high-contrast .glass-btn { border-color: rgba(255, 255, 255, 0.5); }
+
 body {
   background-color: var(--bg-deep);
   color: var(--text-primary);

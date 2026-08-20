@@ -23,12 +23,15 @@
   <canvas id="starfield"></canvas>
 
   <!-- Navbar -->
-  <nav class="fixed top-0 w-full z-50 p-4">
-    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
-      <div class="font-space font-bold text-lg">
+  <nav class="fixed top-0 w-full z-50 p-2 sm:p-4">
+    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-3 sm:px-6 py-2 sm:py-3 flex justify-between items-center gap-2">
+      <div class="font-space font-bold text-base sm:text-lg shrink-0">
         <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
       </div>
-      <a href="#roleSwitch" class="glass-btn !py-2 !px-5 !text-sm">מורה או הורה?</a>
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="#roleSwitch" class="glass-btn !py-1.5 !px-3 sm:!py-2 sm:!px-5 !text-xs sm:!text-sm whitespace-nowrap">מורה או הורה?</a>
+        <a href="https://aritmetica.nt-school.app" target="_blank" rel="noopener" class="glass-btn glass-btn-primary !py-1.5 !px-3 sm:!py-2 sm:!px-5 !text-xs sm:!text-sm whitespace-nowrap">כניסה למערכת</a>
+      </div>
     </div>
   </nav>
 
@@ -124,7 +127,10 @@
   <script src="assets/starfield.js"></script>
   <script src="assets/gallery.js"></script>
   <script src="assets/lead-form.js"></script>
+  <script src="assets/accessibility.js"></script>
   <script>
+    initAccessibilityWidget();
+
     if (window.innerWidth < 640) {
       initSolarSystem({ top: '-8%', left: '-30%', scale: 0.55, rotateOffset: 0, parallaxYFactor: 0.25, parallaxXFactor: 0 });
     } else {

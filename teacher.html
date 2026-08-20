@@ -51,12 +51,15 @@
     <div class="moon-orbit"><div class="moon"></div></div>
   </div>
 
-  <nav class="fixed top-0 w-full z-50 p-4">
-    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
-      <a href="index.html" class="font-space font-bold text-lg" style="text-decoration:none; color:inherit;">
+  <nav class="fixed top-0 w-full z-50 p-2 sm:p-4">
+    <div class="max-w-6xl mx-auto glass-panel !rounded-full px-3 sm:px-6 py-2 sm:py-3 flex justify-between items-center gap-2">
+      <a href="index.html" class="font-space font-bold text-base sm:text-lg shrink-0" style="text-decoration:none; color:inherit;">
         <span style="color:var(--accent-blue);">חשבונ</span>אוטיקה
       </a>
-      <a href="index.html" class="glass-btn !py-2 !px-5 !text-sm">בחירת מסלול</a>
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="index.html" class="glass-btn !py-1.5 !px-3 sm:!py-2 sm:!px-5 !text-xs sm:!text-sm whitespace-nowrap">בחירת מסלול</a>
+        <a href="https://aritmetica.nt-school.app" target="_blank" rel="noopener" class="glass-btn glass-btn-primary !py-1.5 !px-3 sm:!py-2 sm:!px-5 !text-xs sm:!text-sm whitespace-nowrap">כניסה למערכת</a>
+      </div>
     </div>
   </nav>
 
@@ -160,8 +163,9 @@
           <div class="space-y-1">
             <h3 class="font-space text-lg font-bold">גישה לדשבורד האישי שלכם</h3>
             <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
-              היכנסו לדשבורד בכתובת <a href="https://mathapp.vercel.app/teacher" target="_blank" rel="noopener" style="color:var(--accent-turquoise); font-weight:700;">mathapp.vercel.app/teacher</a> עם כניסה מהירה של חשבון Google — בלי סיסמה, וגישה מיידית מרגע ההרשמה.
+              נכנסים למערכת עם חשבון Google — בלי סיסמה, וגישה מיידית מרגע ההרשמה.
             </p>
+            <a href="https://aritmetica.nt-school.app" target="_blank" rel="noopener" class="glass-btn !py-2 !px-5 !text-sm mt-2" style="display:inline-flex;">כניסה למערכת</a>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -169,7 +173,7 @@
           <div class="space-y-1">
             <h3 class="font-space text-lg font-bold">הוספת תלמיד חדש</h3>
             <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
-              לחצו "הוסף תלמיד" והזינו את שמו — תקבלו קישור אישי לתלמיד (ואת קוד הכניסה שלו) להעברה בוואטסאפ. כל תרגול שיבוצע בין השיעורים יופיע אצלכם אוטומטית. אפשר לנהל כך עד 4 תלמידים במקביל, כל אחד בנפרד.
+              במסך <span style="color:var(--text-primary); font-weight:700;">"לוח המורה"</span> לוחצים "הוסף תלמיד" ומזינים את שמו. המערכת מייצרת עבורו <span style="color:var(--text-primary); font-weight:700;">קוד כניסה</span> וקישור אישי — מעבירים לתלמיד או להורה בוואטסאפ, והוא נכנס בלחיצה בלי סיסמה. כל תרגול שיבצע בין השיעורים יופיע אצלכם אוטומטית. אפשר לנהל עד 4 תלמידים במקביל.
             </p>
           </div>
         </div>
@@ -178,7 +182,7 @@
           <div class="space-y-1">
             <h3 class="font-space text-lg font-bold">שיעורי בית בין שיעור לשיעור</h3>
             <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
-              בסוף כל שיעור שגרו לתלמיד משימה ממוקדת בדיוק בנושא שתרגלתם — משחק ורמה ספציפיים, או פלייליסט שלם של כמה שלבים ברצף. המשימה תופיע מודגשת אצל התלמיד, וכך התרגול בבית ממשיך את השיעור במקום להתפזר. אפשר גם לנסות בעצמכם את הרמה ("תצוגה מקדימה") לפני ששולחים.
+              נכנסים לתלמיד ובוחרים בלשונית <span style="color:var(--text-primary); font-weight:700;">📋 משימות</span>. בוחרים משחק ורמה מדויקת בדיוק בנושא שתרגלתם, או בונים רצף של כמה שלבים שהתלמיד יעבור אחד אחרי השני. המשימה תופיע מודגשת אצלו בכניסה למשחק, וכך התרגול בבית ממשיך את השיעור במקום להתפזר. באותה לשונית גם עוקבים אם המשימה בוצעה.
             </p>
           </div>
         </div>
@@ -187,13 +191,36 @@
           <div class="space-y-1">
             <h3 class="font-space text-lg font-bold">הכנה לשיעור הבא ודיווח להורים</h3>
             <p class="text-sm leading-relaxed" style="color:var(--text-muted);">
-              לפני כל שיעור הציצו בדף התלמיד: דיוק (מבוסס כמות ניסיונות, לא רק הצלחה/כישלון), רדאר כישורים, ואינדקס מוטיבציה שמראה אם הוא בוחר לאתגר את עצמו או נתקע באותה רמה. המערכת מתריעה אוטומטית על תלמיד שלא תרגל שבוע או שאחוז ההצלחה שלו נמוך. לדיווח להורים — כפתור אחד שולח סיכום שבועי מוכן לוואטסאפ, או שתפו את קישור המעקב הקבוע של התלמיד שנפתח בלי צורך בהתחברות.
+              לפני כל שיעור נכנסים ללשונית <span style="color:var(--text-primary); font-weight:700;">📊 נתונים</span> של התלמיד: שם רואים את הדיוק שלו (מחושב לפי כמות הניסיונות, לא רק הצלחה/כישלון), <span style="color:var(--text-primary); font-weight:700;">מפת המיומנויות</span>, ופעילות 7 הימים האחרונים — כדי לפתוח את השיעור בדיוק בנקודה הנכונה. לדיווח להורים: כפתור <span style="color:var(--text-primary); font-weight:700;">"קישורי הורים"</span> בראש הדשבורד מייצר להורה קישור מעקב קבוע, שנפתח אצלו בלי צורך בהתחברות.
             </p>
           </div>
         </div>
 
-        <div class="pt-4 flex flex-col items-center gap-3" style="border-top:1px solid var(--border-panel);">
-          <a href="https://mathapp.vercel.app/teacher" target="_blank" rel="noopener" class="glass-btn glass-btn-primary">כניסה ראשית לחשבונאוטיקה 🚀</a>
+        <div class="pt-6" style="border-top:1px solid var(--border-panel);">
+          <h3 class="font-space text-lg font-bold mb-1">מה נמצא איפה — מפת המסכים</h3>
+          <p class="text-sm mb-4" style="color:var(--text-muted);">שמרו את הדף הזה, הוא שימושי גם אחרי הכניסה הראשונה.</p>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-panel);">
+              <p class="text-sm font-bold mb-1">🏠 לוח המורה (המסך הראשי)</p>
+              <p class="text-sm leading-relaxed" style="color:var(--text-muted);">רשימת כל התלמידים שלכם. מכאן מוסיפים תלמיד חדש, נכנסים לתלמיד קיים, ומגיעים לכפתור "קישורי הורים" ולסטטוס המנוי שלכם.</p>
+            </div>
+            <div class="p-4 rounded-xl" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-panel);">
+              <p class="text-sm font-bold mb-1">📊 נתונים — בתוך דף תלמיד</p>
+              <p class="text-sm leading-relaxed" style="color:var(--text-muted);">ביצועים וניתוח: אחוז דיוק, רמה מקסימלית, פירוט לכל משחק, פעילות 7 ימים אחרונים ומפת מיומנויות. זו הלשונית שפותחים לפני שיעור.</p>
+            </div>
+            <div class="p-4 rounded-xl" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-panel);">
+              <p class="text-sm font-bold mb-1">📋 משימות — בתוך דף תלמיד</p>
+              <p class="text-sm leading-relaxed" style="color:var(--text-muted);">שליחה ומעקב: בוחרים משחק ורמה, שולחים לתלמיד, ורואים אם ביצע. זו הלשונית שפותחים בסוף שיעור.</p>
+            </div>
+            <div class="p-4 rounded-xl" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-panel);">
+              <p class="text-sm font-bold mb-1">⚙️ ניהול — בתוך דף תלמיד</p>
+              <p class="text-sm leading-relaxed" style="color:var(--text-muted);">קוד הכניסה והקישור האישי של התלמיד להעתקה מחדש, וכן מחיקת תלמיד.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-6 flex flex-col items-center gap-3" style="border-top:1px solid var(--border-panel);">
+          <a href="https://aritmetica.nt-school.app" target="_blank" rel="noopener" class="glass-btn glass-btn-primary">כניסה ראשית לחשבונאוטיקה 🚀</a>
           <a href="#signup" class="text-sm" style="color:var(--text-muted); text-decoration:underline;">חשבתי על זה שוב, אני מעדיף/ה ליווי</a>
         </div>
       </div>
