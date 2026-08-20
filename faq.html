@@ -10,6 +10,27 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     #starfield { position:fixed; inset:0; z-index:-3; pointer-events:none; }
+
+    .nebula { position:fixed; border-radius:50%; filter:blur(120px); z-index:-2; pointer-events:none; opacity:0.4; }
+    .nebula-1 { width:500px; height:500px; background:rgba(138,180,255,0.12); top:10%; right:-10%; }
+    .nebula-2 { width:600px; height:600px; background:rgba(157,139,255,0.10); bottom:0%; left:-20%; }
+
+    #jwst-parallax { position:fixed; top:5%; left:5%; z-index:-1; pointer-events:none; will-change:transform, opacity; }
+    .jwst-container { width:45vw; min-width:500px; opacity:0.8; filter:blur(1.5px) drop-shadow(0 0 40px rgba(138,180,255,0.18));
+      transform-origin:center; animation:float-jwst 25s ease-in-out infinite alternate; }
+    @media (max-width:768px) { .jwst-container { width:100vw; opacity:0.6; } #jwst-parallax { top:13%; left:-10%; } }
+    @keyframes float-jwst {
+      0% { transform:translate(0,0) rotate(5deg) scale(1); }
+      33% { transform:translate(15px,-20px) rotate(8deg) scale(1.02); }
+      66% { transform:translate(-10px,15px) rotate(3deg) scale(0.98); }
+      100% { transform:translate(-20px,0) rotate(6deg) scale(1); }
+    }
+    .glint { animation:starlight-glint 4s ease-in-out infinite alternate; transform-origin:center; }
+    @keyframes starlight-glint {
+      0%, 50% { opacity:0; transform:scale(0.5) rotate(0deg); }
+      100% { opacity:1; transform:scale(1.5) rotate(45deg); filter:drop-shadow(0 0 10px #ffffff); }
+    }
+
     .faq-item summary { cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .faq-item summary::-webkit-details-marker { display:none; }
     .faq-item .faq-icon { transition:transform 0.25s ease; flex-shrink:0; color:var(--accent-blue); }
@@ -19,6 +40,58 @@
 <body class="antialiased">
 
   <canvas id="starfield"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+
+  <div id="jwst-parallax">
+    <div class="jwst-container">
+      <svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldWebb" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#D4E3FF" />
+            <stop offset="40%" stop-color="#8AB4FF" />
+            <stop offset="100%" stop-color="#3d4a72" />
+          </linearGradient>
+          <linearGradient id="sunshield" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#f8fafc" />
+            <stop offset="50%" stop-color="#cbd5e1" />
+            <stop offset="100%" stop-color="#94a3b8" />
+          </linearGradient>
+        </defs>
+
+        <polygon points="300,340 40,240 300,180 560,240" fill="#64748b" opacity="0.6"/>
+        <polygon points="300,325 50,230 300,170 550,230" fill="#94a3b8" opacity="0.8"/>
+        <polygon points="300,310 60,220 300,160 540,220" fill="url(#sunshield)" stroke="#e2e8f0" stroke-width="2"/>
+
+        <rect x="280" y="310" width="40" height="40" fill="#1e293b" />
+        <polygon points="280,350 320,350 340,380 260,380" fill="#0f172a" />
+        <rect x="230" y="340" width="140" height="15" rx="2" fill="#020617" stroke="#8AB4FF" stroke-width="1"/>
+        <line x1="250" y1="340" x2="250" y2="355" stroke="#8AB4FF" stroke-width="1"/>
+        <line x1="270" y1="340" x2="270" y2="355" stroke="#8AB4FF" stroke-width="1"/>
+        <line x1="330" y1="340" x2="330" y2="355" stroke="#8AB4FF" stroke-width="1"/>
+        <line x1="350" y1="340" x2="350" y2="355" stroke="#8AB4FF" stroke-width="1"/>
+
+        <rect x="275" y="140" width="50" height="60" fill="#1e293b" />
+
+        <g transform="translate(300, 160)">
+          <path d="M 0,-90 L 40,-70 L 80,-45 L 80,0 L 80,45 L 40,70 L 0,90 L -40,70 L -80,45 L -80,0 L -80,-45 L -40,-70 Z" fill="url(#goldWebb)" stroke="#5a6ea0" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M -40,-70 L 40,70 M -80,0 L 80,0 M -40,70 L 40,-70 M -80,-45 L 80,45 M -80,45 L 80,-45 M 0,-90 L 0,90" stroke="#5a6ea0" stroke-width="2" opacity="0.7"/>
+          <path d="M -40,-25 L 40,-25 M -40,25 L 40,25 M -40,-25 L -40,25 M 40,-25 L 40,25" stroke="#5a6ea0" stroke-width="2" opacity="0.7"/>
+          <polygon points="0,-18 15,-9 15,9 0,18 -15,9 -15,-9" fill="#020617" stroke="#334155" stroke-width="2"/>
+          <g transform="translate(40, -40)" class="glint">
+            <path d="M 0,-15 L 2,-2 L 15,0 L 2,2 L 0,15 L -2,2 L -15,0 L -2,-2 Z" fill="#ffffff" />
+          </g>
+        </g>
+
+        <path d="M 300 160 L 300 30" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 220 205 L 298 30" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 380 205 L 302 30" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+
+        <ellipse cx="300" cy="30" rx="16" ry="6" fill="url(#goldWebb)" stroke="#5a6ea0" stroke-width="2"/>
+        <path d="M 284 30 C 284 35, 316 35, 316 30" stroke="#D4E3FF" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+  </div>
 
   <nav class="fixed top-0 w-full z-50 p-4">
     <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-3 flex justify-between items-center">
@@ -32,14 +105,20 @@
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-32 sm:pt-40 pb-20">
     <div class="text-center space-y-3 mb-12">
       <div class="label-tag glass-panel" style="display:inline-flex; color:var(--accent-blue); padding:8px 16px;">
-        <span>❓</span><span>שאלות נפוצות</span>
+        <span>📡</span><span>חוקרים את הלא-נודע</span>
       </div>
-      <h1 class="font-space text-3xl sm:text-4xl font-bold">שאלות ותשובות</h1>
-      <p style="color:var(--text-muted);">כל מה שרציתם לדעת על חשבונאוטיקה, במקום אחד</p>
+      <h1 class="font-space text-3xl sm:text-4xl font-bold leading-tight">יוסטון,<br><span class="text-gradient">יש לנו שאלה.</span></h1>
+      <p style="color:var(--text-muted);" class="max-w-xl mx-auto">כאן תמצאו את כל מה שצריך לדעת על חוויית הלמידה, ההרשמה והמעקב במערכת.</p>
     </div>
 
     <div class="space-y-3" id="faqList">
       <!-- FAQ items go here -->
+    </div>
+
+    <div class="mt-16 text-center space-y-4">
+      <h2 class="font-space text-xl sm:text-2xl font-bold">לא מצאתם את התשובה?</h2>
+      <p style="color:var(--text-muted);">שלחו לנו הודעה ונחזור אליכם בהקדם.</p>
+      <a href="mailto:12natanel@gmail.com" class="glass-btn glass-btn-primary" style="display:inline-flex;">✉️ שלחו לנו הודעה</a>
     </div>
   </main>
 
@@ -48,11 +127,17 @@
   </footer>
 
   <script src="assets/starfield.js"></script>
+  <script src="assets/jwst.js"></script>
   <script>
     initStarfield();
+    initJwstParallax();
 
     const faqData = [
-      // { q: 'שאלה לדוגמה?', a: 'תשובה לדוגמה.' },
+      { q: 'איך תלמיד מתחיל לשחק? צריך להוריד אפליקציה?', a: 'ממש לא. המערכת פועלת ישירות מהדפדפן (כרום, ספארי וכו׳) — בלי התקנה. אפשר להתחבר מטאבלט, נייד או מחשב. המורה או ההורה שולחים קישור אישי לתלמיד, וכל מה שצריך זה ללחוץ ולהתחיל. מומלץ להוסיף את הקישור למסך הבית כדי שייפתח כמו אפליקציה.' },
+      { q: 'איך המערכת מזהה איפה התלמיד מתקשה?', a: 'בניגוד לדף עבודה רגיל שבודק רק "נכון/לא נכון", המערכת מנתחת איך התלמיד הגיע לפתרון ולא רק אם הגיע אליו. כל ניסיון וכל טעות הופכים לנתון שמוצג למורה ולהורה, ומשפיעים על הרמות והתרגולים הבאים שיוצעו לתלמיד.' },
+      { q: 'מה ההבדל בין ממשק ההורה לממשק המורה?', a: 'למורה יש דשבורד מלא: ניהול כל התלמידים, שיגור משימות ופלייליסטים ממוקדים, ומיפוי שגיאות לעומק לכל תלמיד. להורה יש דוח אישי לילד שלו בלבד — מעקב אחר יעד תרגול יומי והתמדה, התראות כשהילד לא תרגל, וצפייה בהתקדמות כדי לעודד אותו מהבית.' },
+      { q: 'האם הפיילוט באמת חינמי? מה עם חידוש אוטומטי?', a: 'הפיילוט הנוכחי פתוח וחינמי לגמרי, ללא התחייבות וללא אותיות קטנות. בהמשך יופעל מחירון (למורים פרטיים ולהורים) — בחלק מהמסלולים תוכלו לבחור אם לחדש אוטומטית או לא.' },
+      { q: 'התלמיד נתקע בשלב מסוים — לעזור לו?', a: 'לפעמים כדאי לתת לו לנסות לבד קצת יותר — משחקי החקר בנויים כך שהתשובה נמצאת מול העיניים, רק צריך לנסות. אם הוא ממש נתקע, יש לכל רמה טיפ פדגוגי במדריך למורה שמסביר איך לעזור בדיוק שם.' }
     ];
     const faqList = document.getElementById('faqList');
     faqData.forEach(function (item) {

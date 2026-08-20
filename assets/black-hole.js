@@ -48,8 +48,8 @@ function initBlackHole(options) {
     this.y = startY + (Math.random() * 60 - 30);
     this.oldX = this.x;
     this.oldY = this.y;
-    this.vx = Math.random() * 1.6 + 1.2;
-    this.vy = (Math.random() - 0.5) * 0.6;
+    this.vx = Math.random() * 1.0 + 0.8;
+    this.vy = (Math.random() - 0.5) * 0.4;
     this.color = color;
     this.size = (Math.random() * 1.5 + 0.5) * sizeMultiplier;
     this.life = 1.0;
@@ -68,13 +68,13 @@ function initBlackHole(options) {
 
     const dirX = dx / dist;
     const dirY = dy / dist;
-    const pullForce = 9000 / (dist * dist + 400);
-    const swirlForce = 13000 / (dist * dist + 250);
+    const pullForce = 9000 / (dist * dist + 700);
+    const swirlForce = 13000 / (dist * dist + 900);
 
     this.vx += dirX * pullForce - dirY * swirlForce + driftX;
     this.vy += dirY * pullForce + dirX * swirlForce;
-    this.vx *= 0.94;
-    this.vy *= 0.94;
+    this.vx *= 0.92;
+    this.vy *= 0.92;
     this.x += this.vx;
     this.y += this.vy;
     this.life -= this.decay;
